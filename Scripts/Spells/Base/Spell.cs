@@ -30,7 +30,7 @@ using Server.Spells.Mysticism;
 
 namespace Server.Spells
 {
-	public abstract class Spell : ISpell
+	public abstract partial class Spell : ISpell
 	{
 		private readonly Mobile m_Caster;
 		private readonly Item m_Scroll;
@@ -930,7 +930,7 @@ namespace Server.Spells
 			return TimeSpan.FromSeconds(delay);
 		}
 
-		public virtual int CastRecoveryBase { get { return 6; } }
+		//public virtual int CastRecoveryBase { get { return 6; } }
 		public virtual int CastRecoveryFastScalar { get { return 1; } }
 		public virtual int CastRecoveryPerSecond { get { return 4; } }
 		public virtual int CastRecoveryMinimum { get { return 0; } }
@@ -967,64 +967,64 @@ namespace Server.Spells
 		//public virtual int CastDelayPerSecond{ get{ return 4; } }
 		//public virtual int CastDelayMinimum{ get{ return 1; } }
 
-		public virtual TimeSpan GetCastDelay()
-		{
-            if (m_Scroll is SpellStone) 
-            {
-                return TimeSpan.Zero;
-            }
+		//public virtual TimeSpan GetCastDelay()
+		//{
+  //          if (m_Scroll is SpellStone) 
+  //          {
+  //              return TimeSpan.Zero;
+  //          }
 
-            if (m_Scroll is BaseWand)
-			{
-				return Core.ML ? CastDelayBase : TimeSpan.Zero; // TODO: Should FC apply to wands?
-			}
+  //          if (m_Scroll is BaseWand)
+		//	{
+		//		return Core.ML ? CastDelayBase : TimeSpan.Zero; // TODO: Should FC apply to wands?
+		//	}
 
-			// Faster casting cap of 2 (if not using the protection spell) 
-			// Faster casting cap of 0 (if using the protection spell) 
-			// Paladin spells are subject to a faster casting cap of 4 
-			// Paladins with magery of 70.0 or above are subject to a faster casting cap of 2 
-			int fcMax = 4;
+		//	// Faster casting cap of 2 (if not using the protection spell) 
+		//	// Faster casting cap of 0 (if using the protection spell) 
+		//	// Paladin spells are subject to a faster casting cap of 4 
+		//	// Paladins with magery of 70.0 or above are subject to a faster casting cap of 2 
+		//	int fcMax = 4;
 
-			if (CastSkill == SkillName.Magery || CastSkill == SkillName.Necromancy || CastSkill == SkillName.Mysticism ||
-                (CastSkill == SkillName.Chivalry && (m_Caster.Skills[SkillName.Magery].Value >= 70.0 || m_Caster.Skills[SkillName.Mysticism].Value >= 70.0)))
-			{
-				fcMax = 2;
-			}
+		//	if (CastSkill == SkillName.Magery || CastSkill == SkillName.Necromancy || CastSkill == SkillName.Mysticism ||
+  //              (CastSkill == SkillName.Chivalry && (m_Caster.Skills[SkillName.Magery].Value >= 70.0 || m_Caster.Skills[SkillName.Mysticism].Value >= 70.0)))
+		//	{
+		//		fcMax = 2;
+		//	}
 
-			int fc = AosAttributes.GetValue(m_Caster, AosAttribute.CastSpeed);
+		//	int fc = AosAttributes.GetValue(m_Caster, AosAttribute.CastSpeed);
 
-			if (fc > fcMax)
-			{
-				fc = fcMax;
-			}
+		//	if (fc > fcMax)
+		//	{
+		//		fc = fcMax;
+		//	}
 
-            if (ProtectionSpell.Registry.ContainsKey(m_Caster) || EodonianPotion.IsUnderEffects(m_Caster, PotionEffect.Urali))
-            {
-                fc = Math.Min(fcMax - 2, fc - 2);
-            }
+  //          if (ProtectionSpell.Registry.ContainsKey(m_Caster) || EodonianPotion.IsUnderEffects(m_Caster, PotionEffect.Urali))
+  //          {
+  //              fc = Math.Min(fcMax - 2, fc - 2);
+  //          }
 
-			TimeSpan baseDelay = CastDelayBase;
+		//	TimeSpan baseDelay = CastDelayBase;
 
-			TimeSpan fcDelay = TimeSpan.FromSeconds(-(CastDelayFastScalar * fc * CastDelaySecondsPerTick));
+		//	TimeSpan fcDelay = TimeSpan.FromSeconds(-(CastDelayFastScalar * fc * CastDelaySecondsPerTick));
 
-			//int delay = CastDelayBase + circleDelay + fcDelay;
-			TimeSpan delay = baseDelay + fcDelay;
+		//	//int delay = CastDelayBase + circleDelay + fcDelay;
+		//	TimeSpan delay = baseDelay + fcDelay;
 
-			if (delay < CastDelayMinimum)
-			{
-				delay = CastDelayMinimum;
-			}
+		//	if (delay < CastDelayMinimum)
+		//	{
+		//		delay = CastDelayMinimum;
+		//	}
 
-			#region Mondain's Legacy
-			if (DreadHorn.IsUnderInfluence(m_Caster))
-			{
-				delay.Add(delay);
-			}
-			#endregion
+		//	#region Mondain's Legacy
+		//	if (DreadHorn.IsUnderInfluence(m_Caster))
+		//	{
+		//		delay.Add(delay);
+		//	}
+		//	#endregion
 
-			//return TimeSpan.FromSeconds( (double)delay / CastDelayPerSecond );
-			return delay;
-		}
+		//	//return TimeSpan.FromSeconds( (double)delay / CastDelayPerSecond );
+		//	return delay;
+		//}
 
 		public virtual void FinishSequence()
 		{

@@ -7,7 +7,7 @@ using Server.Spells.SkillMasteries;
 
 namespace Server.Misc
 {
-    public class SkillCheck
+    public partial class SkillCheck
     {
         private static bool m_StatGainDelayEnabled;
         private static TimeSpan m_StatGainDelay;
@@ -156,43 +156,43 @@ namespace Server.Misc
             return CheckSkill(from, skill, loc, chance);
         }
 
-        public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance)
-        {
-            if (from.Skills.Cap == 0)
-                return false;
+        //public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance)
+        //{
+        //    if (from.Skills.Cap == 0)
+        //        return false;
 
-            bool success = (chance >= Utility.RandomDouble());
-            double gc = (double)(from.Skills.Cap - from.Skills.Total) / from.Skills.Cap;
-            gc += (skill.Cap - skill.Base) / skill.Cap;
-            gc /= 2;
+        //    bool success = (chance >= Utility.RandomDouble());
+        //    double gc = (double)(from.Skills.Cap - from.Skills.Total) / from.Skills.Cap;
+        //    gc += (skill.Cap - skill.Base) / skill.Cap;
+        //    gc /= 2;
 
-            gc += (1.0 - chance) * (success ? 0.5 : (Core.AOS ? 0.0 : 0.2));
-            gc /= 2;
+        //    gc += (1.0 - chance) * (success ? 0.5 : (Core.AOS ? 0.0 : 0.2));
+        //    gc /= 2;
 
-            gc *= skill.Info.GainFactor;
+        //    gc *= skill.Info.GainFactor;
 
-            if (gc < 0.01)
-                gc = 0.01;
+        //    if (gc < 0.01)
+        //        gc = 0.01;
 
-            if (from is BaseCreature && ((BaseCreature)from).Controlled)
-                gc *= 2;
+        //    if (from is BaseCreature && ((BaseCreature)from).Controlled)
+        //        gc *= 2;
 
-            if (AllowGain(from, skill, amObj))
-            {
-                if (from.Alive && (gc >= Utility.RandomDouble() || skill.Base < 10.0 || CheckGGS(from, skill)))
-                {
-                    Gain(from, skill);
-                    if (from.SkillsTotal >= 4500 || skill.Base >= 80.0)
-                    {
-                        Account acc = from.Account as Account;
-                        if (acc != null)
-                            acc.RemoveYoungStatus(1019036);
-                    }
-                }
-            }
+        //    if (AllowGain(from, skill, amObj))
+        //    {
+        //        if (from.Alive && (gc >= Utility.RandomDouble() || skill.Base < 10.0 || CheckGGS(from, skill)))
+        //        {
+        //            Gain(from, skill);
+        //            if (from.SkillsTotal >= 4500 || skill.Base >= 80.0)
+        //            {
+        //                Account acc = from.Account as Account;
+        //                if (acc != null)
+        //                    acc.RemoveYoungStatus(1019036);
+        //            }
+        //        }
+        //    }
 
-            return success;
-        }
+        //    return success;
+        //}
 
         public static bool Mobile_SkillCheckTarget(Mobile from, SkillName skillName, object target, double minSkill, double maxSkill)
         {
@@ -258,119 +258,119 @@ namespace Server.Misc
             Int
         }
 
-        public static void Gain(Mobile from, Skill skill)
-        {
-            if (from.Region.IsPartOf<Regions.Jail>())
-                return;
+    //    public static void Gain(Mobile from, Skill skill)
+    //    {
+    //        if (from.Region.IsPartOf<Regions.Jail>())
+    //            return;
 
-            if (from is BaseCreature && ((BaseCreature)from).IsDeadPet)
-                return;
+    //        if (from is BaseCreature && ((BaseCreature)from).IsDeadPet)
+    //            return;
 
-            if (skill.SkillName == SkillName.Focus && from is BaseCreature)
-                return;
+    //        if (skill.SkillName == SkillName.Focus && from is BaseCreature)
+    //            return;
 
-            if (skill.Base < skill.Cap && skill.Lock == SkillLock.Up)
-            {
-                int toGain = 1;
-                Skills skills = from.Skills;
+    //        if (skill.Base < skill.Cap && skill.Lock == SkillLock.Up)
+    //        {
+    //            int toGain = 1;
+    //            Skills skills = from.Skills;
 
-                if (from is PlayerMobile && Siege.SiegeShard)
-                {
-                    int minsPerGain = Siege.MinutesPerGain(from, skill);
+    //            if (from is PlayerMobile && Siege.SiegeShard)
+    //            {
+    //                int minsPerGain = Siege.MinutesPerGain(from, skill);
 
-                    if (minsPerGain > 0)
-                    {
-                        if (Siege.CheckSkillGain((PlayerMobile)from, minsPerGain, skill))
-                        {
-                            if (from is PlayerMobile)
-                            {
-                                CheckReduceSkill((PlayerMobile)from, skills, toGain, skill);
-                            }
+    //                if (minsPerGain > 0)
+    //                {
+    //                    if (Siege.CheckSkillGain((PlayerMobile)from, minsPerGain, skill))
+    //                    {
+    //                        if (from is PlayerMobile)
+    //                        {
+    //                            CheckReduceSkill((PlayerMobile)from, skills, toGain, skill);
+    //                        }
 
-                            if (skills.Total + toGain <= skills.Cap)
-                            {
-                                skill.BaseFixedPoint += toGain;
-                            }
-                        }
+    //                        if (skills.Total + toGain <= skills.Cap)
+    //                        {
+    //                            skill.BaseFixedPoint += toGain;
+    //                        }
+    //                    }
 
-                        return;
-                    }
-                }
+    //                    return;
+    //                }
+    //            }
 
-                if (skill.Base <= 10.0)
-                    toGain = Utility.Random(4) + 1;
+    //            if (skill.Base <= 10.0)
+    //                toGain = Utility.Random(4) + 1;
 
-                #region Mondain's Legacy
-                if (from is PlayerMobile && Server.Engines.Quests.QuestHelper.EnhancedSkill((PlayerMobile)from, skill))
-                {
-                    toGain *= Utility.RandomMinMax(2, 4);
-                }
-                #endregion
+    //            #region Mondain's Legacy
+    //            if (from is PlayerMobile && Server.Engines.Quests.QuestHelper.EnhancedSkill((PlayerMobile)from, skill))
+    //            {
+    //                toGain *= Utility.RandomMinMax(2, 4);
+    //            }
+    //            #endregion
 
-                #region Scroll of Alacrity
-                if (from is PlayerMobile && skill.SkillName == ((PlayerMobile)from).AcceleratedSkill && ((PlayerMobile)from).AcceleratedStart > DateTime.UtcNow)
-                {
-                    ((PlayerMobile)from).SendLocalizedMessage(1077956); // You are infused with intense energy. You are under the effects of an accelerated skillgain scroll.
-                    toGain = Utility.RandomMinMax(2, 5);
-                }
-                #endregion
+    //            #region Scroll of Alacrity
+    //            if (from is PlayerMobile && skill.SkillName == ((PlayerMobile)from).AcceleratedSkill && ((PlayerMobile)from).AcceleratedStart > DateTime.UtcNow)
+    //            {
+    //                ((PlayerMobile)from).SendLocalizedMessage(1077956); // You are infused with intense energy. You are under the effects of an accelerated skillgain scroll.
+    //                toGain = Utility.RandomMinMax(2, 5);
+    //            }
+    //            #endregion
 
-                #region Skill Masteries
-                else if (from is BaseCreature && (((BaseCreature)from).Controlled || ((BaseCreature)from).Summoned))
-                {
-                    Mobile master = ((BaseCreature)from).GetMaster();
+    //            #region Skill Masteries
+    //            else if (from is BaseCreature && (((BaseCreature)from).Controlled || ((BaseCreature)from).Summoned))
+    //            {
+    //                Mobile master = ((BaseCreature)from).GetMaster();
 
-                    if (master != null)
-                    {
-                        WhisperingSpell spell = SkillMasterySpell.GetSpell(master, typeof(WhisperingSpell)) as WhisperingSpell;
+    //                if (master != null)
+    //                {
+    //                    WhisperingSpell spell = SkillMasterySpell.GetSpell(master, typeof(WhisperingSpell)) as WhisperingSpell;
 
-                        if (spell != null && master.InRange(from.Location, spell.PartyRange) && master.Map == from.Map && spell.EnhancedGainChance >= Utility.Random(100))
-                        {
-                            toGain = Utility.RandomMinMax(2, 5);
-                        }
-                    }
-                }
-                #endregion
+    //                    if (spell != null && master.InRange(from.Location, spell.PartyRange) && master.Map == from.Map && spell.EnhancedGainChance >= Utility.Random(100))
+    //                    {
+    //                        toGain = Utility.RandomMinMax(2, 5);
+    //                    }
+    //                }
+    //            }
+    //            #endregion
 
-                if (from is PlayerMobile)
-                {
-                    CheckReduceSkill((PlayerMobile)from, skills, toGain, skill);
-                }
+    //            if (from is PlayerMobile)
+    //            {
+    //                CheckReduceSkill((PlayerMobile)from, skills, toGain, skill);
+    //            }
 
-                if (!from.Player || (skills.Total + toGain) <= skills.Cap)
-                {
-                    skill.BaseFixedPoint += toGain;
+    //            if (!from.Player || (skills.Total + toGain) <= skills.Cap)
+    //            {
+    //                skill.BaseFixedPoint += toGain;
 
-                    if(from is PlayerMobile)
-                        UpdateGGS(from, skill);
-                }
-            }
+    //                if(from is PlayerMobile)
+    //                    UpdateGGS(from, skill);
+    //            }
+    //        }
 
-            #region Mondain's Legacy
-            if (from is PlayerMobile)
-                Server.Engines.Quests.QuestHelper.CheckSkill((PlayerMobile)from, skill);
-            #endregion
+    //        #region Mondain's Legacy
+    //        if (from is PlayerMobile)
+    //            Server.Engines.Quests.QuestHelper.CheckSkill((PlayerMobile)from, skill);
+    //        #endregion
 
-            if (skill.Lock == SkillLock.Up && (!Siege.SiegeShard || !(from is PlayerMobile) || Siege.CanGainStat((PlayerMobile)from)))
-            {
-                SkillInfo info = skill.Info;
+    //        if (skill.Lock == SkillLock.Up && (!Siege.SiegeShard || !(from is PlayerMobile) || Siege.CanGainStat((PlayerMobile)from)))
+    //        {
+    //            SkillInfo info = skill.Info;
 
-                // Old gain mechanic
-				if (!Core.ML)
-				{
-					if (from.StrLock == StatLockType.Up && (info.StrGain / 33.3) > Utility.RandomDouble())
-						GainStat(from, Stat.Str);
-					else if (from.DexLock == StatLockType.Up && (info.DexGain / 33.3) > Utility.RandomDouble())
-						GainStat(from, Stat.Dex);
-					else if (from.IntLock == StatLockType.Up && (info.IntGain / 33.3) > Utility.RandomDouble())
-						GainStat(from, Stat.Int);
-				}
-				else
-				{
-					TryStatGain(info, from);
-				}
-            }
-        }
+    //            // Old gain mechanic
+				//if (!Core.ML)
+				//{
+				//	if (from.StrLock == StatLockType.Up && (info.StrGain / 33.3) > Utility.RandomDouble())
+				//		GainStat(from, Stat.Str);
+				//	else if (from.DexLock == StatLockType.Up && (info.DexGain / 33.3) > Utility.RandomDouble())
+				//		GainStat(from, Stat.Dex);
+				//	else if (from.IntLock == StatLockType.Up && (info.IntGain / 33.3) > Utility.RandomDouble())
+				//		GainStat(from, Stat.Int);
+				//}
+				//else
+				//{
+				//	TryStatGain(info, from);
+				//}
+    //        }
+    //    }
 
         private static void CheckReduceSkill(PlayerMobile pm, Skills skills, int toGain, Skill gainSKill)
         {

@@ -282,6 +282,49 @@
     <Compile Include="Context Menus\TeachEntry.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Custom\Account\AccountHandler.cs" />
+    <Compile Include="Custom\Automated Staff\Core Files %28Replace These..Its safe%29\HelpGump.cs" />
+    <Compile Include="Custom\Automated Staff\Core\AutomatedStaffTeamSystem.cs" />
+    <Compile Include="Custom\Automated Staff\Gumps\StaffKeyWordsGump.cs" />
+    <Compile Include="Custom\Automated Staff\Gumps\Suggestion.cs" />
+    <Compile Include="Custom\Automated Staff\Items\StuckGate.cs" />
+    <Compile Include="Custom\Automated Staff\Mobiles\StaffBot.cs" />
+    <Compile Include="Custom\BlueBots\BaseBlue.cs" />
+    <Compile Include="Custom\BlueBots\FriendlyPlayer.cs" />
+    <Compile Include="Custom\BlueBots\InnMaid.cs" />
+    <Compile Include="Custom\BlueBots\Mercvendor.cs" />
+    <Compile Include="Custom\BlueBots\SBMercvendor.cs" />
+    <Compile Include="Custom\BlueBots\SpawnHelper.cs" />
+    <Compile Include="Custom\BlueBots\SpawnHelperMage.cs" />
+    <Compile Include="Custom\BlueBots\YoungPlayer.cs" />
+    <Compile Include="Custom\Account\CharacterCreation.cs" />
+    <Compile Include="Custom\Commands\AddToParty.cs" />
+    <Compile Include="Custom\Commands\AutoSplitGold.cs" />
+    <Compile Include="Custom\Commands\BondInfo.cs" />
+    <Compile Include="Custom\Items\HealthOrb.cs" />
+    <Compile Include="Custom\Items\PublicMoongate.cs" />
+    <Compile Include="Custom\Items\Young\YoungDagger.cs" />
+    <Compile Include="Custom\Items\Young\YoungKatana.cs" />
+    <Compile Include="Custom\Items\Young\YoungShield.cs" />
+    <Compile Include="Custom\Items\Young\YoungStaff.cs" />
+    <Compile Include="Custom\Items\Young\YoungTessen.cs" />
+    <Compile Include="Custom\Items\Young\YoungWarriorBag.cs" />
+    <Compile Include="Custom\Loot\Loot.cs" />
+    <Compile Include="Custom\Loot\LootPack.cs" />
+    <Compile Include="Custom\Matchmaking\Matchmaking.cs" />
+    <Compile Include="Custom\Matchmaking\MatchmakingGump.cs" />
+    <Compile Include="Custom\Matchmaking\MatchmakingStone.cs" />
+    <Compile Include="Custom\Misc\SkillCheck.cs" />
+    <Compile Include="Custom\Mobiles\MageGuildmaster.cs" />
+    <Compile Include="Custom\Mobiles\PlayerMobile.cs" />
+    <Compile Include="Custom\Mobiles\SBMage.cs" />
+    <Compile Include="Custom\Mobiles\TrainingsCow.cs" />
+    <Compile Include="Custom\Spells\BladeSpirits.cs" />
+    <Compile Include="Custom\Spells\MagerySpell.cs" />
+    <Compile Include="Custom\Spells\MysticSpell.cs" />
+    <Compile Include="Custom\Spells\Spell.cs" />
+    <Compile Include="Custom\Spells\SpellHelper.cs" />
+    <Compile Include="Custom\Spells\SummonCreatureSpell.cs" />
     <Compile Include="Deprecated\AlchemyStone.cs" />
     <Compile Include="Deprecated\FiveOvercapStatScroll.cs" />
     <Compile Include="Deprecated\GamblingStone.cs" />
@@ -12506,6 +12549,8 @@
     <None Include="Services\XmlSpawner\XMLSpawner Support\Stealing.cs.2.4" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Custom\Automated Staff\Pg 1.html" />
+    <Content Include="Custom\BlueBots\info.txt" />
     <Content Include="Services\New Magincia\ReadMe.txt" />
     <Content Include="Services\Revamped Dungeons\DespiseRevamped\Read Me.txt" />
     <Content Include="Services\Revamped Dungeons\Shame Revamped\Read Me.txt" />

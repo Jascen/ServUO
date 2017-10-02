@@ -4,7 +4,7 @@ using Server.Targeting;
 
 namespace Server.Spells.Fifth
 {
-    public class BladeSpiritsSpell : MagerySpell
+    public partial class BladeSpiritsSpell : MagerySpell
     {
         private static readonly SpellInfo m_Info = new SpellInfo(
             "Blade Spirits", "In Jux Hur Ylem",
@@ -34,19 +34,19 @@ namespace Server.Spells.Fifth
             return base.GetCastDelay() + TimeSpan.FromSeconds(6.0);
         }
 
-        public override bool CheckCast()
-        {
-            if (!base.CheckCast())
-                return false;
+        //public override bool CheckCast()
+        //{
+        //    if (!base.CheckCast())
+        //        return false;
 
-            if ((this.Caster.Followers + (Core.SE ? 2 : 1)) > this.Caster.FollowersMax)
-            {
-                this.Caster.SendLocalizedMessage(1049645); // You have too many followers to summon that creature.
-                return false;
-            }
+        //    if ((this.Caster.Followers + (Core.SE ? 2 : 1)) > this.Caster.FollowersMax)
+        //    {
+        //        this.Caster.SendLocalizedMessage(1049645); // You have too many followers to summon that creature.
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public override void OnCast()
         {

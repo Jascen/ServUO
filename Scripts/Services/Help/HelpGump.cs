@@ -45,7 +45,7 @@ namespace Server.Engines.Help
         }
     }
 
-    public class HelpGump : Gump
+    public partial class HelpGump : Gump
     {
         public HelpGump(Mobile from)
             : base(0, 0)
@@ -186,119 +186,119 @@ namespace Server.Engines.Help
             switch ( info.ButtonID )
             {
                 case 0: // Close/Cancel
-                    {
-                        from.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
+                {
+                    from.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
 
-                        break;
-                    }
+                    break;
+                }
                 case 1: // General question
-                    {
-                        type = PageType.Question;
-                        break;
-                    }
+                {
+                    type = PageType.Question;
+                    break;
+                }
                 case 2: // Stuck
-                    {
-                        BaseHouse house = BaseHouse.FindHouseAt(from);
+                {
+                    BaseHouse house = BaseHouse.FindHouseAt(from);
 
-                        if (house != null && house.IsAosRules && !from.Region.IsPartOf<Engines.ConPVP.SafeZone>()) // Dueling
-                        {
-                            from.Location = house.BanLocation;
-                        }
-                        else if (from.Region.IsPartOf<Server.Regions.Jail>())
+                    if (house != null && house.IsAosRules && !from.Region.IsPartOf<Engines.ConPVP.SafeZone>()) // Dueling
+                    {
+                        from.Location = house.BanLocation;
+                    }
+                    else if (from.Region.IsPartOf<Server.Regions.Jail>())
+                    {
+                        from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
+                    }
+                    else if (Factions.Sigil.ExistsOn(from))
+                    {
+                        from.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
+                    }
+                    else if (from.CanUseStuckMenu() && from.Region.CanUseStuckMenu(from) && !CheckCombat(from) && !from.Frozen && !from.Criminal && (Core.AOS || from.Kills < 5))
+                    {
+                        StuckMenu menu = new StuckMenu(from, from, true);
+
+                        menu.BeginClose();
+
+                        from.SendGump(menu);
+                    }
+                    else
+                    {
+                        type = PageType.Stuck;
+                    }
+
+                    break;
+                }
+                case 3: // Report bug or contact Origin
+                {
+                    type = PageType.Bug;
+                    break;
+                }
+                case 4: // Game suggestion
+                {
+                    type = PageType.Suggestion;
+                    break;
+                }
+                case 5: // Account management
+                {
+                    type = PageType.Account;
+                    break;
+                }
+                case 6: // Other
+                {
+                    type = PageType.Other;
+                    break;
+                }
+                case 7: // Harassment: verbal/exploit
+                {
+                    type = PageType.VerbalHarassment;
+                    break;
+                }
+                case 8: // Harassment: physical
+                {
+                    type = PageType.PhysicalHarassment;
+                    break;
+                }
+                case 9: // Young player transport
+                {
+                    if (IsYoung(from))
+                    {
+                        if (from.Region.IsPartOf<Regions.Jail>())
                         {
                             from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
                         }
-                        else if (Factions.Sigil.ExistsOn(from))
+                        else if (from.Region.IsPartOf("Haven Island"))
                         {
-                            from.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
-                        }
-                        else if (from.CanUseStuckMenu() && from.Region.CanUseStuckMenu(from) && !CheckCombat(from) && !from.Frozen && !from.Criminal && (Core.AOS || from.Kills < 5))
-                        {
-                            StuckMenu menu = new StuckMenu(from, from, true);
-
-                            menu.BeginClose();
-
-                            from.SendGump(menu);
+                            from.SendLocalizedMessage(1041529); // You're already in Haven
                         }
                         else
                         {
-                            type = PageType.Stuck;
+                            from.MoveToWorld(new Point3D(3503, 2574, 14), Map.Trammel);
                         }
+                    }
 
-                        break;
-                    }
-                case 3: // Report bug or contact Origin
-                    {
-                        type = PageType.Bug;
-                        break;
-                    }
-                case 4: // Game suggestion
-                    {
-                        type = PageType.Suggestion;
-                        break;
-                    }
-                case 5: // Account management
-                    {
-                        type = PageType.Account;
-                        break;
-                    }
-                case 6: // Other
-                    {
-                        type = PageType.Other;
-                        break;
-                    }
-                case 7: // Harassment: verbal/exploit
-                    {
-                        type = PageType.VerbalHarassment;
-                        break;
-                    }
-                case 8: // Harassment: physical
-                    {
-                        type = PageType.PhysicalHarassment;
-                        break;
-                    }
-                case 9: // Young player transport
-                    {
-                        if (IsYoung(from))
-                        {
-                            if (from.Region.IsPartOf<Regions.Jail>())
-                            {
-                                from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
-                            }
-                            else if (from.Region.IsPartOf("Haven Island"))
-                            {
-                                from.SendLocalizedMessage(1041529); // You're already in Haven
-                            }
-                            else
-                            {
-                                from.MoveToWorld(new Point3D(3503, 2574, 14), Map.Trammel);
-                            }
-                        }
-
-                        break;
-                    }
+                    break;
+                }
             }
 
             if (type != (PageType)(-1) && PageQueue.CheckAllowedToPage(from))
                 from.SendGump(new PagePromptGump(from, type));
         }
 
-        private static void EventSink_HelpRequest(HelpRequestEventArgs e)
-        {
-            foreach (Gump g in e.Mobile.NetState.Gumps)
-            {
-                if (g is HelpGump)
-                    return;
-            }
+        //private static void EventSink_HelpRequest(HelpRequestEventArgs e)
+        //{
+        //    foreach (Gump g in e.Mobile.NetState.Gumps)
+        //    {
+        //        if (g is HelpGump)
+        //            return;
+        //    }
 
-            if (!PageQueue.CheckAllowedToPage(e.Mobile))
-                return;
+        //    if (!PageQueue.CheckAllowedToPage(e.Mobile))
+        //        return;
 
-            if (PageQueue.Contains(e.Mobile))
-                e.Mobile.SendMenu(new ContainedMenu(e.Mobile));
-            else
-                e.Mobile.SendGump(new HelpGump(e.Mobile));
-        }
+        //    if (PageQueue.Contains(e.Mobile))
+        //        e.Mobile.SendMenu(new ContainedMenu(e.Mobile));
+        //    else
+        //        e.Mobile.SendGump(new HelpGump(e.Mobile));
+        //}
 
         private static bool IsYoung(Mobile m)
         {

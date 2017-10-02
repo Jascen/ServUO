@@ -526,7 +526,7 @@ namespace Server
 		#endregion
 	}
 
-	public class LootPackEntry
+	public partial class LootPackEntry
 	{
 		private LootPackDice m_Quantity;
 
@@ -588,40 +588,40 @@ namespace Server
 
             return e.Map == Map.TerMur || (!IsInTokuno(e) && !IsMondain(e) && Utility.RandomBool());
 		}
-		#endregion
+        #endregion
 
-		public Item Construct(Mobile from, int luckChance, bool spawning)
-		{
-			if (m_AtSpawnTime != spawning)
-			{
-				return null;
-			}
+	    //public Item Construct(Mobile from, int luckChance, bool spawning)
+	    //{
+	    //    if (m_AtSpawnTime != spawning)
+	    //    {
+	    //        return null;
+	    //    }
 
-			int totalChance = 0;
+	    //    int totalChance = 0;
 
-			for (int i = 0; i < m_Items.Length; ++i)
-			{
-				totalChance += m_Items[i].Chance;
-			}
+	    //    for (int i = 0; i < m_Items.Length; ++i)
+	    //    {
+	    //        totalChance += m_Items[i].Chance;
+	    //    }
 
-			int rnd = Utility.Random(totalChance);
+	    //    int rnd = Utility.Random(totalChance);
 
-			for (int i = 0; i < m_Items.Length; ++i)
-			{
-				LootPackItem item = m_Items[i];
+	    //    for (int i = 0; i < m_Items.Length; ++i)
+	    //    {
+	    //        LootPackItem item = m_Items[i];
 
-                if (rnd < item.Chance)
-                {
-                    return Mutate(from, luckChance, item.Construct(IsInTokuno(from), IsMondain(from), IsStygian(from)));
-                }
+	    //        if (rnd < item.Chance)
+	    //        {
+	    //            return Mutate(from, luckChance, item.Construct(IsInTokuno(from), IsMondain(from), IsStygian(from)));
+	    //        }
 
-				rnd -= item.Chance;
-			}
+	    //        rnd -= item.Chance;
+	    //    }
 
-			return null;
-		}
+	    //    return null;
+	    //}
 
-		private int GetRandomOldBonus()
+        private int GetRandomOldBonus()
 		{
 			int rnd = Utility.RandomMinMax(m_MinIntensity, m_MaxIntensity);
 

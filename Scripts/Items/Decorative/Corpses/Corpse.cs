@@ -73,7 +73,7 @@ namespace Server.Items
 		SelfLooted = 0x00000080,
 	}
 
-	public class Corpse : Container, ICarvable
+	public partial class Corpse : Container, ICarvable
 	{
 		private Mobile m_Owner; // Whos corpse is this?
 		private Mobile m_Killer; // Who killed the owner?
@@ -972,15 +972,15 @@ namespace Server.Items
 			return true;
 		}
 
-		public override bool CheckLift(Mobile from, Item item, ref LRReason reject)
-		{
-			if (!base.CheckLift(from, item, ref reject))
-			{
-				return false;
-			}
+		//public override bool CheckLift(Mobile from, Item item, ref LRReason reject)
+		//{
+		//	if (!base.CheckLift(from, item, ref reject))
+		//	{
+		//		return false;
+		//	}
 
-			return CanLoot(from, item);
-		}
+		//	return CanLoot(from, item);
+		//}
 
 		public override void OnItemUsed(Mobile from, Item item)
 		{

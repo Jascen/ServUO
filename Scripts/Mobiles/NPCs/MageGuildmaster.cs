@@ -7,7 +7,7 @@ using Server.Gumps;
 
 namespace Server.Mobiles
 {
-    public class MageGuildmaster : BaseGuildmaster
+    public partial class MageGuildmaster : BaseGuildmaster
     {
         private List<PendingConvert> m_PendingConverts = new List<PendingConvert>();
 
@@ -52,13 +52,13 @@ namespace Server.Mobiles
             this.AddItem(new Server.Items.GnarledStaff());
         }
 
-		public override void AddCustomContextEntries(Mobile from, List<ContextMenuEntry> list)
-		{
-			base.AddCustomContextEntries(from, list);
+		//public override void AddCustomContextEntries(Mobile from, List<ContextMenuEntry> list)
+		//{
+		//	base.AddCustomContextEntries(from, list);
 
-			if(from != null)
-				list.Add(new UpgradeMageArmor(from, this));
-		}
+		//	if(from != null)
+		//		list.Add(new UpgradeMageArmor(from, this));
+		//}
 
         public static bool CanConvertArmor(BaseArmor armor)
         {

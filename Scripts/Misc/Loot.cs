@@ -13,7 +13,7 @@ using Server.Mobiles;
 
 namespace Server
 {
-    public class Loot
+    public partial class Loot
     {
         #region List definitions
 
@@ -175,10 +175,10 @@ namespace Server
 
         public static Type[] GemTypes { get { return m_GemTypes; } }
 
-        private static readonly Type[] m_JewelryTypes = new[]
-		{
-			typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet),
-		};
+        //private static readonly Type[] m_JewelryTypes = new[]
+        //{
+        //    typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet),
+        //};
 
         public static Type[] JewelryTypes { get { return m_JewelryTypes; } }
 

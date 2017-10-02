@@ -4,7 +4,7 @@ using Server.Targeting;
 
 namespace Server.Spells.Mysticism
 {
-    public abstract class MysticSpell : Spell
+    public abstract partial class MysticSpell : Spell
     {
         public MysticSpell(Mobile caster, Item scroll, SpellInfo info)
             : base(caster, scroll, info)
@@ -15,7 +15,7 @@ namespace Server.Spells.Mysticism
 
         private static int[] m_ManaTable = new int[] { 4, 6, 9, 11, 14, 20, 40, 50 };
 
-        public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(0.5 + 0.25 * (int)Circle); } }
+        //public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(0.5 + CastDelaySecondsPerTick * (int)Circle); } }
         public override double CastDelayFastScalar { get { return 1.0; } }
 
         private const double ChanceOffset = 20.0, ChanceLength = 100.0 / 7.0;

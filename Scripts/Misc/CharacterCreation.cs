@@ -8,7 +8,7 @@ using Server.Network;
 
 namespace Server.Misc
 {
-    public class CharacterCreation
+    public partial class CharacterCreation
     {
         private static readonly CityInfo m_NewHavenInfo = new CityInfo("New Haven", "The Bountiful Harvest Inn", 3503, 2574, 14, Map.Trammel);
         private static readonly CityInfo m_SiegeInfo = new CityInfo("Britain", "The Wayfarer's Inn", 1075074, 1602, 1591, 20, Map.Felucca);
@@ -34,27 +34,27 @@ namespace Server.Misc
                 return false;
         }
 
-        private static void AddBackpack(Mobile m)
-        {
-            Container pack = m.Backpack;
+        //private static void AddBackpack(Mobile m)
+        //{
+        //    Container pack = m.Backpack;
 
-            if (pack == null)
-            {
-                pack = new Backpack();
-                pack.Movable = false;
+        //    if (pack == null)
+        //    {
+        //        pack = new Backpack();
+        //        pack.Movable = false;
 
-                m.AddItem(pack);
-            }
+        //        m.AddItem(pack);
+        //    }
 
-            PackItem(new RedBook("a book", m.Name, 20, true));
-            PackItem(new Gold(1000)); // Starting gold can be customized here
-            PackItem(new Candle());
+        //    PackItem(new RedBook("a book", m.Name, 20, true));
+        //    PackItem(new Gold(1000)); // Starting gold can be customized here
+        //    PackItem(new Candle());
 
-            if (m.Race != Race.Gargoyle)
-                PackItem(new Dagger());
-            else
-                PackItem(new GargishDagger());
-        }
+        //    if (m.Race != Race.Gargoyle)
+        //        PackItem(new Dagger());
+        //    else
+        //        PackItem(new GargishDagger());
+        //}
 
         private static void AddShirt(Mobile m, int shirtHue)
         {
@@ -148,133 +148,133 @@ namespace Server.Misc
             return null;
         }
 
-        private static void EventSink_CharacterCreated(CharacterCreatedEventArgs args)
-        {
-            if (!VerifyProfession(args.Profession))
-                args.Profession = 0;
+   //     private static void EventSink_CharacterCreated(CharacterCreatedEventArgs args)
+   //     {
+   //         if (!VerifyProfession(args.Profession))
+   //             args.Profession = 0;
 
-            NetState state = args.State;
+   //         NetState state = args.State;
 
-            if (state == null)
-                return;
+   //         if (state == null)
+   //             return;
 
-            Mobile newChar = CreateMobile(args.Account as Account);
+   //         Mobile newChar = CreateMobile(args.Account as Account);
 
-            if (newChar == null)
-            {
-                Utility.PushColor(ConsoleColor.Red);
-                Console.WriteLine("Login: {0}: Character creation failed, account full", state);
-                Utility.PopColor();
-                return;
-            }
+   //         if (newChar == null)
+   //         {
+   //             Utility.PushColor(ConsoleColor.Red);
+   //             Console.WriteLine("Login: {0}: Character creation failed, account full", state);
+   //             Utility.PopColor();
+   //             return;
+   //         }
 
-            args.Mobile = newChar;
-            m_Mobile = newChar;
+   //         args.Mobile = newChar;
+   //         m_Mobile = newChar;
 
-            newChar.Player = true;
-            newChar.AccessLevel = args.Account.AccessLevel;
-            newChar.Female = args.Female;
-            //newChar.Body = newChar.Female ? 0x191 : 0x190;
+   //         newChar.Player = true;
+   //         newChar.AccessLevel = args.Account.AccessLevel;
+   //         newChar.Female = args.Female;
+   //         //newChar.Body = newChar.Female ? 0x191 : 0x190;
 
-            if (Core.Expansion >= args.Race.RequiredExpansion)
-                newChar.Race = args.Race;	//Sets body
-            else
-                newChar.Race = Race.DefaultRace;
+   //         if (Core.Expansion >= args.Race.RequiredExpansion)
+   //             newChar.Race = args.Race;	//Sets body
+   //         else
+   //             newChar.Race = Race.DefaultRace;
 
-            //newChar.Hue = Utility.ClipSkinHue( args.Hue & 0x3FFF ) | 0x8000;
-            newChar.Hue = newChar.Race.ClipSkinHue(args.Hue & 0x3FFF) | 0x8000;
+   //         //newChar.Hue = Utility.ClipSkinHue( args.Hue & 0x3FFF ) | 0x8000;
+   //         newChar.Hue = newChar.Race.ClipSkinHue(args.Hue & 0x3FFF) | 0x8000;
 
-            newChar.Hunger = 20;
+   //         newChar.Hunger = 20;
 
-            bool young = false;
+   //         bool young = false;
 
-            if (newChar is PlayerMobile)
-            {
-                PlayerMobile pm = (PlayerMobile)newChar;
-                pm.AutoRenewInsurance = true;
-                double skillcap = Config.Get("PlayerCaps.SkillCap", 1000.0d) / 10;
-                if (skillcap != 100.0)
-                {
-                    for (int i = 0; i < Enum.GetNames(typeof(SkillName)).Length; ++i)
-                        pm.Skills[i].Cap = skillcap;
-                }
-                pm.Profession = args.Profession;
+   //         if (newChar is PlayerMobile)
+   //         {
+   //             PlayerMobile pm = (PlayerMobile)newChar;
+   //             pm.AutoRenewInsurance = true;
+   //             double skillcap = Config.Get("PlayerCaps.SkillCap", 1000.0d) / 10;
+   //             if (skillcap != 100.0)
+   //             {
+   //                 for (int i = 0; i < Enum.GetNames(typeof(SkillName)).Length; ++i)
+   //                     pm.Skills[i].Cap = skillcap;
+   //             }
+   //             pm.Profession = args.Profession;
 
-                if (pm.IsPlayer() && ((Account)pm.Account).Young && !Siege.SiegeShard)
-                    young = pm.Young = true;
-            }
+   //             if (pm.IsPlayer() && ((Account)pm.Account).Young && !Siege.SiegeShard)
+   //                 young = pm.Young = true;
+   //         }
 
-            SetName(newChar, args.Name);
+   //         SetName(newChar, args.Name);
 
-            AddBackpack(newChar);
+   //         AddBackpack(newChar);
 
-            SetStats(newChar, state, args.Str, args.Dex, args.Int);
-            SetSkills(newChar, args.Skills, args.Profession);
+   //         SetStats(newChar, state, args.Str, args.Dex, args.Int);
+   //         SetSkills(newChar, args.Skills, args.Profession);
 
-            Race race = newChar.Race;
+   //         Race race = newChar.Race;
 
-            if (race.ValidateHair(newChar, args.HairID))
-            {
-                newChar.HairItemID = args.HairID;
-                newChar.HairHue = race.ClipHairHue(args.HairHue & 0x3FFF);
-            }
+   //         if (race.ValidateHair(newChar, args.HairID))
+   //         {
+   //             newChar.HairItemID = args.HairID;
+   //             newChar.HairHue = race.ClipHairHue(args.HairHue & 0x3FFF);
+   //         }
 
-            if (race.ValidateFacialHair(newChar, args.BeardID))
-            {
-                newChar.FacialHairItemID = args.BeardID;
-                newChar.FacialHairHue = race.ClipHairHue(args.BeardHue & 0x3FFF);
-            }
+   //         if (race.ValidateFacialHair(newChar, args.BeardID))
+   //         {
+   //             newChar.FacialHairItemID = args.BeardID;
+   //             newChar.FacialHairHue = race.ClipHairHue(args.BeardHue & 0x3FFF);
+   //         }
 
-            int faceID = args.FaceID;
+   //         int faceID = args.FaceID;
 
-            if (faceID > 0 && race.ValidateFace(newChar.Female, faceID))
-            {
-                newChar.FaceItemID = faceID;
-                newChar.FaceHue = args.FaceHue;
-            }
-            else
-            {
-                newChar.FaceItemID = race.RandomFace(newChar.Female);
-                newChar.FaceHue = newChar.Hue;
-            }
+   //         if (faceID > 0 && race.ValidateFace(newChar.Female, faceID))
+   //         {
+   //             newChar.FaceItemID = faceID;
+   //             newChar.FaceHue = args.FaceHue;
+   //         }
+   //         else
+   //         {
+   //             newChar.FaceItemID = race.RandomFace(newChar.Female);
+   //             newChar.FaceHue = newChar.Hue;
+   //         }
 
-            if (args.Profession <= 3)
-            {
-                AddShirt(newChar, args.ShirtHue);
-                AddPants(newChar, args.PantsHue);
-                AddShoes(newChar);
-            }
+   //         if (args.Profession <= 3)
+   //         {
+   //             AddShirt(newChar, args.ShirtHue);
+   //             AddPants(newChar, args.PantsHue);
+   //             AddShoes(newChar);
+   //         }
 
-            if (TestCenter.Enabled)
-                TestCenter.FillBankbox(newChar);
+   //         if (TestCenter.Enabled)
+   //             TestCenter.FillBankbox(newChar);
 
-            if (young)
-            {
-                NewPlayerTicket ticket = new NewPlayerTicket();
-                ticket.Owner = newChar;
-                newChar.BankBox.DropItem(ticket);
-            }
+   //         if (young)
+   //         {
+   //             NewPlayerTicket ticket = new NewPlayerTicket();
+   //             ticket.Owner = newChar;
+   //             newChar.BankBox.DropItem(ticket);
+   //         }
 
-            CityInfo city = args.City;
-            Map map = Siege.SiegeShard && city.Map == Map.Trammel ? Map.Felucca : city.Map;
+   //         CityInfo city = args.City;
+   //         Map map = Siege.SiegeShard && city.Map == Map.Trammel ? Map.Felucca : city.Map;
 
-            newChar.MoveToWorld(city.Location, map);
+   //         newChar.MoveToWorld(city.Location, map);
 
-            Utility.PushColor(ConsoleColor.Green);
-            Console.WriteLine("Login: {0}: New character being created (account={1})", state, args.Account.Username);
-            Utility.PopColor();
-            Utility.PushColor(ConsoleColor.DarkGreen);
-            Console.WriteLine(" - Character: {0} (serial={1})", newChar.Name, newChar.Serial);
-            Console.WriteLine(" - Started: {0} {1} in {2}", city.City, city.Location, city.Map.ToString());
-            Utility.PopColor();
+   //         Utility.PushColor(ConsoleColor.Green);
+   //         Console.WriteLine("Login: {0}: New character being created (account={1})", state, args.Account.Username);
+   //         Utility.PopColor();
+   //         Utility.PushColor(ConsoleColor.DarkGreen);
+   //         Console.WriteLine(" - Character: {0} (serial={1})", newChar.Name, newChar.Serial);
+   //         Console.WriteLine(" - Started: {0} {1} in {2}", city.City, city.Location, city.Map.ToString());
+   //         Utility.PopColor();
 
-            new WelcomeTimer(newChar).Start();
+   //         new WelcomeTimer(newChar).Start();
 
-			if (XmlSpawner.PointsEnabled)
-				XmlAttach.AttachTo(newChar, new XmlPoints());
-			if(XmlSpawner.FactionsEnabled)
-				XmlAttach.AttachTo(newChar, new XmlMobFactions());
-        }
+			//if (XmlSpawner.PointsEnabled)
+			//	XmlAttach.AttachTo(newChar, new XmlPoints());
+			//if(XmlSpawner.FactionsEnabled)
+			//	XmlAttach.AttachTo(newChar, new XmlMobFactions());
+   //     }
 
         private static void FixStats(ref int str, ref int dex, ref int intel, int max)
         {
@@ -370,310 +370,310 @@ namespace Server.Misc
             return (total == 100 || total == 120);
         }
 
-        private static void SetSkills(Mobile m, SkillNameValue[] skills, int prof)
-        {
-            switch ( prof )
-            {
-                case 1: // Warrior
-                    {
-                        skills = new SkillNameValue[]
-                        {
-                            new SkillNameValue(SkillName.Anatomy, 30),
-                            new SkillNameValue(SkillName.Healing, 45),
-                            new SkillNameValue(SkillName.Swords, 35),
-                            new SkillNameValue(SkillName.Tactics, 50)
-                        };
+   //     private static void SetSkills(Mobile m, SkillNameValue[] skills, int prof)
+   //     {
+   //         switch ( prof )
+   //         {
+   //             case 1: // Warrior
+   //                 {
+   //                     skills = new SkillNameValue[]
+   //                     {
+   //                         new SkillNameValue(SkillName.Anatomy, 30),
+   //                         new SkillNameValue(SkillName.Healing, 45),
+   //                         new SkillNameValue(SkillName.Swords, 35),
+   //                         new SkillNameValue(SkillName.Tactics, 50)
+   //                     };
 
-                        break;
-                    }
-                case 2: // Magician
-                    {
-                        skills = new SkillNameValue[]
-                        {
-                            new SkillNameValue(SkillName.EvalInt, 30),
-                            new SkillNameValue(SkillName.Wrestling, 30),
-                            new SkillNameValue(SkillName.Magery, 50),
-                            new SkillNameValue(SkillName.Meditation, 50)
-                        };
+   //                     break;
+   //                 }
+   //             case 2: // Magician
+   //                 {
+   //                     skills = new SkillNameValue[]
+   //                     {
+   //                         new SkillNameValue(SkillName.EvalInt, 30),
+   //                         new SkillNameValue(SkillName.Wrestling, 30),
+   //                         new SkillNameValue(SkillName.Magery, 50),
+   //                         new SkillNameValue(SkillName.Meditation, 50)
+   //                     };
 
-                        break;
-                    }
-                case 3: // Blacksmith
-                    {
-                        skills = new SkillNameValue[]
-                        {
-                            new SkillNameValue(SkillName.Mining, 30),
-                            new SkillNameValue(SkillName.ArmsLore, 30),
-                            new SkillNameValue(SkillName.Blacksmith, 50),
-                            new SkillNameValue(SkillName.Tinkering, 50)
-                        };
+   //                     break;
+   //                 }
+   //             case 3: // Blacksmith
+   //                 {
+   //                     skills = new SkillNameValue[]
+   //                     {
+   //                         new SkillNameValue(SkillName.Mining, 30),
+   //                         new SkillNameValue(SkillName.ArmsLore, 30),
+   //                         new SkillNameValue(SkillName.Blacksmith, 50),
+   //                         new SkillNameValue(SkillName.Tinkering, 50)
+   //                     };
 
-                        break;
-                    }
-                case 4: // Necromancer
-                    {
-                        skills = new SkillNameValue[]
-                        {
-                            new SkillNameValue(SkillName.Necromancy, 50),
-                            new SkillNameValue(SkillName.Focus, 30),
-                            new SkillNameValue(SkillName.SpiritSpeak, 30),
-                            new SkillNameValue(SkillName.Swords, 30),
-                            new SkillNameValue(SkillName.Tactics, 20)
-                        };
+   //                     break;
+   //                 }
+   //             case 4: // Necromancer
+   //                 {
+   //                     skills = new SkillNameValue[]
+   //                     {
+   //                         new SkillNameValue(SkillName.Necromancy, 50),
+   //                         new SkillNameValue(SkillName.Focus, 30),
+   //                         new SkillNameValue(SkillName.SpiritSpeak, 30),
+   //                         new SkillNameValue(SkillName.Swords, 30),
+   //                         new SkillNameValue(SkillName.Tactics, 20)
+   //                     };
 
-                        break;
-                    }
-                case 5: // Paladin
-                    {
-                        skills = new SkillNameValue[]
-                        {
-                            new SkillNameValue(SkillName.Chivalry, 51),
-                            new SkillNameValue(SkillName.Swords, 49),
-                            new SkillNameValue(SkillName.Focus, 30),
-                            new SkillNameValue(SkillName.Tactics, 30)
-                        };
+   //                     break;
+   //                 }
+   //             case 5: // Paladin
+   //                 {
+   //                     skills = new SkillNameValue[]
+   //                     {
+   //                         new SkillNameValue(SkillName.Chivalry, 51),
+   //                         new SkillNameValue(SkillName.Swords, 49),
+   //                         new SkillNameValue(SkillName.Focus, 30),
+   //                         new SkillNameValue(SkillName.Tactics, 30)
+   //                     };
 
-                        break;
-                    }
-                case 6:	//Samurai
-                    {
-                        skills = new SkillNameValue[]
-                        {
-                            new SkillNameValue(SkillName.Bushido, 50),
-                            new SkillNameValue(SkillName.Swords, 50),
-                            new SkillNameValue(SkillName.Anatomy, 30),
-                            new SkillNameValue(SkillName.Healing, 30)
-                        };
-                        break;
-                    }
-                case 7:	//Ninja
-                    {
-                        skills = new SkillNameValue[]
-                        {
-                            new SkillNameValue(SkillName.Ninjitsu, 50),
-                            new SkillNameValue(SkillName.Hiding, 50),
-                            new SkillNameValue(SkillName.Fencing, 30),
-                            new SkillNameValue(SkillName.Stealth, 30)
-                        };
-                        break;
-                    }
-                default:
-                    {
-                        if (!ValidSkills(skills))
-                            return;
+   //                     break;
+   //                 }
+   //             case 6:	//Samurai
+   //                 {
+   //                     skills = new SkillNameValue[]
+   //                     {
+   //                         new SkillNameValue(SkillName.Bushido, 50),
+   //                         new SkillNameValue(SkillName.Swords, 50),
+   //                         new SkillNameValue(SkillName.Anatomy, 30),
+   //                         new SkillNameValue(SkillName.Healing, 30)
+   //                     };
+   //                     break;
+   //                 }
+   //             case 7:	//Ninja
+   //                 {
+   //                     skills = new SkillNameValue[]
+   //                     {
+   //                         new SkillNameValue(SkillName.Ninjitsu, 50),
+   //                         new SkillNameValue(SkillName.Hiding, 50),
+   //                         new SkillNameValue(SkillName.Fencing, 30),
+   //                         new SkillNameValue(SkillName.Stealth, 30)
+   //                     };
+   //                     break;
+   //                 }
+   //             default:
+   //                 {
+   //                     if (!ValidSkills(skills))
+   //                         return;
 
-                        break;
-                    }
-            }
+   //                     break;
+   //                 }
+   //         }
 
-            bool addSkillItems = true;
-            bool elf = (m.Race == Race.Elf);
-            bool human = (m.Race == Race.Human);
-            bool gargoyle = (m.Race == Race.Gargoyle);
+   //         bool addSkillItems = true;
+   //         bool elf = (m.Race == Race.Elf);
+   //         bool human = (m.Race == Race.Human);
+   //         bool gargoyle = (m.Race == Race.Gargoyle);
 
-            switch ( prof )
-            {
-                case 1: // Warrior
-                    {
-                        if (elf)
-                            EquipItem(new LeafChest());
-                        else if (human)
-                            EquipItem(new LeatherChest());
-                        else if (gargoyle)
-                        {
-                            EquipItem(new GargishLeatherChest());
-                        }
+   //         switch ( prof )
+   //         {
+   //             case 1: // Warrior
+   //                 {
+   //                     if (elf)
+   //                         EquipItem(new LeafChest());
+   //                     else if (human)
+   //                         EquipItem(new LeatherChest());
+   //                     else if (gargoyle)
+   //                     {
+   //                         EquipItem(new GargishLeatherChest());
+   //                     }
 
-                        break;
-                    }
-                case 4: // Necromancer
-                    {
-                        Container regs = new BagOfNecroReagents(50);
+   //                     break;
+   //                 }
+   //             case 4: // Necromancer
+   //                 {
+   //                     Container regs = new BagOfNecroReagents(50);
 
-                        if (!Core.AOS)
-                        {
-                            foreach (Item item in regs.Items)
-                                item.LootType = LootType.Newbied;
-                        }
+   //                     if (!Core.AOS)
+   //                     {
+   //                         foreach (Item item in regs.Items)
+   //                             item.LootType = LootType.Newbied;
+   //                     }
 
-                        PackItem(regs);
+   //                     PackItem(regs);
 
-                        regs.LootType = LootType.Regular;
+   //                     regs.LootType = LootType.Regular;
 
-                        if (elf || human)
-                            EquipItem(new BoneHelm());
+   //                     if (elf || human)
+   //                         EquipItem(new BoneHelm());
 
-                        if (elf)
-                        {
-                            EquipItem(new ElvenMachete());
-                            EquipItem(NecroHue(new LeafChest()));
-                            EquipItem(NecroHue(new LeafArms()));
-                            EquipItem(NecroHue(new LeafGloves()));
-                            EquipItem(NecroHue(new LeafGorget()));
-                            EquipItem(NecroHue(new LeafGorget()));
-                            EquipItem(NecroHue(new ElvenPants()));	//TODO: Verify the pants
-                            EquipItem(new ElvenBoots());
-                        }
-                        else if (human)
-                        {
-                            EquipItem(new BoneHarvester());
-                            EquipItem(NecroHue(new LeatherChest()));
-                            EquipItem(NecroHue(new LeatherArms()));
-                            EquipItem(NecroHue(new LeatherGloves()));
-                            EquipItem(NecroHue(new LeatherGorget()));
-                            EquipItem(NecroHue(new LeatherLegs()));
-                            EquipItem(NecroHue(new Skirt()));
-                            EquipItem(new Sandals(0x8FD));
-                        }
-                        else if (gargoyle)
-                        {
-                            EquipItem(new GlassSword());
-                            EquipItem(NecroHue(new GargishLeatherChest()));
-                            EquipItem(NecroHue(new GargishLeatherArms()));
-                            EquipItem(NecroHue(new GargishLeatherLegs()));
-                            EquipItem(NecroHue(new GargishLeatherKilt()));
-                        }
+   //                     if (elf)
+   //                     {
+   //                         EquipItem(new ElvenMachete());
+   //                         EquipItem(NecroHue(new LeafChest()));
+   //                         EquipItem(NecroHue(new LeafArms()));
+   //                         EquipItem(NecroHue(new LeafGloves()));
+   //                         EquipItem(NecroHue(new LeafGorget()));
+   //                         EquipItem(NecroHue(new LeafGorget()));
+   //                         EquipItem(NecroHue(new ElvenPants()));	//TODO: Verify the pants
+   //                         EquipItem(new ElvenBoots());
+   //                     }
+   //                     else if (human)
+   //                     {
+   //                         EquipItem(new BoneHarvester());
+   //                         EquipItem(NecroHue(new LeatherChest()));
+   //                         EquipItem(NecroHue(new LeatherArms()));
+   //                         EquipItem(NecroHue(new LeatherGloves()));
+   //                         EquipItem(NecroHue(new LeatherGorget()));
+   //                         EquipItem(NecroHue(new LeatherLegs()));
+   //                         EquipItem(NecroHue(new Skirt()));
+   //                         EquipItem(new Sandals(0x8FD));
+   //                     }
+   //                     else if (gargoyle)
+   //                     {
+   //                         EquipItem(new GlassSword());
+   //                         EquipItem(NecroHue(new GargishLeatherChest()));
+   //                         EquipItem(NecroHue(new GargishLeatherArms()));
+   //                         EquipItem(NecroHue(new GargishLeatherLegs()));
+   //                         EquipItem(NecroHue(new GargishLeatherKilt()));
+   //                     }
 
-                        Spellbook book = new NecromancerSpellbook((ulong)0x8981); // animate dead, evil omen, pain spike, summon familiar, wraith form
+   //                     Spellbook book = new NecromancerSpellbook((ulong)0x8981); // animate dead, evil omen, pain spike, summon familiar, wraith form
 
-                        PackItem(book);
+   //                     PackItem(book);
 
-                        book.LootType = LootType.Blessed;
+   //                     book.LootType = LootType.Blessed;
 
-                        addSkillItems = false;
-                        break;
-                    }
-                case 5: // Paladin
-                    {
-                        if (elf)
-                        {
-                            EquipItem(new ElvenMachete());
-                            EquipItem(new WingedHelm());
-                            EquipItem(new LeafGorget());
-                            EquipItem(new LeafArms());
-                            EquipItem(new LeafChest());
-                            EquipItem(new LeafLegs());
-                            EquipItem(new ElvenBoots());	//Verify hue
-                        }
-                        else if (human)
-                        {
-                            EquipItem(new Broadsword());
-                            EquipItem(new Helmet());
-                            EquipItem(new PlateGorget());
-                            EquipItem(new RingmailArms());
-                            EquipItem(new RingmailChest());
-                            EquipItem(new RingmailLegs());
-                            EquipItem(new ThighBoots(0x748));
-                            EquipItem(new Cloak(0xCF));
-                            EquipItem(new BodySash(0xCF));
-                        }
-                        else if (gargoyle)
-                        {
-                            EquipItem(new DreadSword());
-                            EquipItem(new GargishPlateChest());
-                            EquipItem(new GargishPlateArms());
-                            EquipItem(new GargishPlateLegs());
-                            EquipItem(new GargishPlateKilt());
-                        }
+   //                     addSkillItems = false;
+   //                     break;
+   //                 }
+   //             case 5: // Paladin
+   //                 {
+   //                     if (elf)
+   //                     {
+   //                         EquipItem(new ElvenMachete());
+   //                         EquipItem(new WingedHelm());
+   //                         EquipItem(new LeafGorget());
+   //                         EquipItem(new LeafArms());
+   //                         EquipItem(new LeafChest());
+   //                         EquipItem(new LeafLegs());
+   //                         EquipItem(new ElvenBoots());	//Verify hue
+   //                     }
+   //                     else if (human)
+   //                     {
+   //                         EquipItem(new Broadsword());
+   //                         EquipItem(new Helmet());
+   //                         EquipItem(new PlateGorget());
+   //                         EquipItem(new RingmailArms());
+   //                         EquipItem(new RingmailChest());
+   //                         EquipItem(new RingmailLegs());
+   //                         EquipItem(new ThighBoots(0x748));
+   //                         EquipItem(new Cloak(0xCF));
+   //                         EquipItem(new BodySash(0xCF));
+   //                     }
+   //                     else if (gargoyle)
+   //                     {
+   //                         EquipItem(new DreadSword());
+   //                         EquipItem(new GargishPlateChest());
+   //                         EquipItem(new GargishPlateArms());
+   //                         EquipItem(new GargishPlateLegs());
+   //                         EquipItem(new GargishPlateKilt());
+   //                     }
 
-                        Spellbook book = new BookOfChivalry((ulong)0x3FF);
-                        book.LootType = LootType.Blessed;
-                        PackItem(book);
+   //                     Spellbook book = new BookOfChivalry((ulong)0x3FF);
+   //                     book.LootType = LootType.Blessed;
+   //                     PackItem(book);
 
-                        addSkillItems = false;
-                        break;
-                    }
+   //                     addSkillItems = false;
+   //                     break;
+   //                 }
 					
-                case 6: // Samurai
-                    {
-                        if (elf || human)
-                        {
-                            EquipItem(new HakamaShita(0x2C3));
-                            EquipItem(new Hakama(0x2C3));
-                            EquipItem(new SamuraiTabi(0x2C3));
-                            EquipItem(new TattsukeHakama(0x22D));
-                            EquipItem(new Bokuto());
+   //             case 6: // Samurai
+   //                 {
+   //                     if (elf || human)
+   //                     {
+   //                         EquipItem(new HakamaShita(0x2C3));
+   //                         EquipItem(new Hakama(0x2C3));
+   //                         EquipItem(new SamuraiTabi(0x2C3));
+   //                         EquipItem(new TattsukeHakama(0x22D));
+   //                         EquipItem(new Bokuto());
 
-                            if (elf)
-                                EquipItem(new RavenHelm());
-                            else
-                                EquipItem(new LeatherJingasa());
-                        }
-                        else if (gargoyle)
-                        {
-                            EquipItem(new GlassSword());
-                            EquipItem(new GargishPlateChest());
-                            EquipItem(new GargishPlateArms());
-                            EquipItem(new GargishPlateLegs());
-                            EquipItem(new GargishPlateKilt());
-                        }
+   //                         if (elf)
+   //                             EquipItem(new RavenHelm());
+   //                         else
+   //                             EquipItem(new LeatherJingasa());
+   //                     }
+   //                     else if (gargoyle)
+   //                     {
+   //                         EquipItem(new GlassSword());
+   //                         EquipItem(new GargishPlateChest());
+   //                         EquipItem(new GargishPlateArms());
+   //                         EquipItem(new GargishPlateLegs());
+   //                         EquipItem(new GargishPlateKilt());
+   //                     }
 
-                        PackItem(new Scissors());
-                        PackItem(new Bandage(50));
+   //                     PackItem(new Scissors());
+   //                     PackItem(new Bandage(50));
 
-                        Spellbook book = new BookOfBushido();
-                        PackItem(book);
+   //                     Spellbook book = new BookOfBushido();
+   //                     PackItem(book);
 
-                        addSkillItems = false;
-                        break;
-                    }
-                case 7: // Ninja
-                    {
-                        int[] hues = new int[] { 0x1A8, 0xEC, 0x99, 0x90, 0xB5, 0x336, 0x89 };
-                        //TODO: Verify that's ALL the hues for that above.
+   //                     addSkillItems = false;
+   //                     break;
+   //                 }
+   //             case 7: // Ninja
+   //                 {
+   //                     int[] hues = new int[] { 0x1A8, 0xEC, 0x99, 0x90, 0xB5, 0x336, 0x89 };
+   //                     //TODO: Verify that's ALL the hues for that above.
 
-                        if (elf || human)
-                        {
-                            EquipItem(new Kasa());
-                            EquipItem(new TattsukeHakama(hues[Utility.Random(hues.Length)]));
-                            EquipItem(new HakamaShita(0x2C3));
-                            EquipItem(new NinjaTabi(0x2C3));
+   //                     if (elf || human)
+   //                     {
+   //                         EquipItem(new Kasa());
+   //                         EquipItem(new TattsukeHakama(hues[Utility.Random(hues.Length)]));
+   //                         EquipItem(new HakamaShita(0x2C3));
+   //                         EquipItem(new NinjaTabi(0x2C3));
 
-                            if (elf)
-                                EquipItem(new AssassinSpike());
-                            else
-                                EquipItem(new Tekagi());
-                        }
-                        else if (gargoyle)
-                        {
-                            EquipItem(new GargishDagger());
+   //                         if (elf)
+   //                             EquipItem(new AssassinSpike());
+   //                         else
+   //                             EquipItem(new Tekagi());
+   //                     }
+   //                     else if (gargoyle)
+   //                     {
+   //                         EquipItem(new GargishDagger());
 
-                            int hue = hues[Utility.Random(hues.Length)];
+   //                         int hue = hues[Utility.Random(hues.Length)];
 
-                            EquipItem(new GargishClothChestArmor(hue));
-                            EquipItem(new GargishClothArmsArmor(hue));
-                            EquipItem(new GargishClothLegsArmor(hue));
-                            EquipItem(new GargishClothKiltArmor(hue));
-                        }
+   //                         EquipItem(new GargishClothChestArmor(hue));
+   //                         EquipItem(new GargishClothArmsArmor(hue));
+   //                         EquipItem(new GargishClothLegsArmor(hue));
+   //                         EquipItem(new GargishClothKiltArmor(hue));
+   //                     }
 
-                        PackItem(new SmokeBomb());
+   //                     PackItem(new SmokeBomb());
 
-                        Spellbook book = new BookOfNinjitsu();
-                        PackItem(book);
+   //                     Spellbook book = new BookOfNinjitsu();
+   //                     PackItem(book);
 
-                        addSkillItems = false;
-                        break;
-                    }
-            }
+   //                     addSkillItems = false;
+   //                     break;
+   //                 }
+   //         }
             
-			for (int i = 0; i < skills.Length; ++i)
-			{
-				SkillNameValue snv = skills[i];
+			//for (int i = 0; i < skills.Length; ++i)
+			//{
+			//	SkillNameValue snv = skills[i];
 
-				if (snv.Value > 0 && (snv.Name != SkillName.Stealth || prof == 7) && snv.Name != SkillName.RemoveTrap && snv.Name != SkillName.Spellweaving)
-				{
-					Skill skill = m.Skills[snv.Name];
+			//	if (snv.Value > 0 && (snv.Name != SkillName.Stealth || prof == 7) && snv.Name != SkillName.RemoveTrap && snv.Name != SkillName.Spellweaving)
+			//	{
+			//		Skill skill = m.Skills[snv.Name];
 
-					if (skill != null)
-					{
-						skill.BaseFixedPoint = snv.Value * 10;
+			//		if (skill != null)
+			//		{
+			//			skill.BaseFixedPoint = snv.Value * 10;
 						
-						if ( addSkillItems )
-							AddSkillItems(snv.Name, m);
-					}
-                }
-            }
-        }
+			//			if ( addSkillItems )
+			//				AddSkillItems(snv.Name, m);
+			//		}
+   //             }
+   //         }
+   //     }
 
         private static void EquipItem(Item item)
         {

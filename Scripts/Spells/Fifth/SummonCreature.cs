@@ -3,7 +3,7 @@ using Server.Mobiles;
 
 namespace Server.Spells.Fifth
 {
-    public class SummonCreatureSpell : MagerySpell
+    public partial class SummonCreatureSpell : MagerySpell
     {
         private static readonly SpellInfo m_Info = new SpellInfo(
             "Summon Creature", "Kal Xen",
@@ -13,27 +13,27 @@ namespace Server.Spells.Fifth
             Reagent.MandrakeRoot,
             Reagent.SpidersSilk);
         // NOTE: Creature list based on 1hr of summon/release on OSI.
-        private static readonly Type[] m_Types = new Type[]
-        {
-            typeof(PolarBear),
-            typeof(GrizzlyBear),
-            typeof(BlackBear),
-            typeof(Horse),
-            typeof(Walrus),
-            typeof(Chicken),
-            typeof(Scorpion),
-            typeof(GiantSerpent),
-            typeof(Llama),
-            typeof(Alligator),
-            typeof(GreyWolf),
-            typeof(Slime),
-            typeof(Eagle),
-            typeof(Gorilla),
-            typeof(SnowLeopard),
-            typeof(Pig),
-            typeof(Hind),
-            typeof(Rabbit)
-        };
+        //private static readonly Type[] m_Types = new Type[]
+        //{
+        //    typeof(PolarBear),
+        //    typeof(GrizzlyBear),
+        //    typeof(BlackBear),
+        //    typeof(Horse),
+        //    typeof(Walrus),
+        //    typeof(Chicken),
+        //    typeof(Scorpion),
+        //    typeof(GiantSerpent),
+        //    typeof(Llama),
+        //    typeof(Alligator),
+        //    typeof(GreyWolf),
+        //    typeof(Slime),
+        //    typeof(Eagle),
+        //    typeof(Gorilla),
+        //    typeof(SnowLeopard),
+        //    typeof(Pig),
+        //    typeof(Hind),
+        //    typeof(Rabbit)
+        //};
         public SummonCreatureSpell(Mobile caster, Item scroll)
             : base(caster, scroll, m_Info)
         {

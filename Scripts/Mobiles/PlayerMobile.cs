@@ -114,10 +114,10 @@ namespace Server.Mobiles
 	}
 	#endregion
 
-	public class PlayerMobile : Mobile, IHonorTarget
-	{
-		#region Mount Blocking
-		public void SetMountBlock(BlockMountType type, TimeSpan duration, bool dismount)
+	public partial class PlayerMobile : Mobile, IHonorTarget
+    {
+        #region Mount Blocking
+        public void SetMountBlock(BlockMountType type, TimeSpan duration, bool dismount)
 		{
 			if (dismount)
 			{
