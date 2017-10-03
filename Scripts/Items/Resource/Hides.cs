@@ -126,7 +126,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1079, 0x1078)]
-    public class Hides : BaseHides, IScissorable
+    public partial class Hides : BaseHides, IScissorable
     {
         [Constructable]
         public Hides()
@@ -159,20 +159,20 @@ namespace Server.Items
             int version = reader.ReadInt();
         }
 
-        public bool Scissor(Mobile from, Scissors scissors)
-        {
-            if (this.Deleted || !from.CanSee(this))
-                return false;
+        //public bool Scissor(Mobile from, Scissors scissors)
+        //{
+        //    if (this.Deleted || !from.CanSee(this))
+        //        return false;
 
-            if (Core.AOS && !this.IsChildOf(from.Backpack))
-            {
-                from.SendLocalizedMessage(502437); // Items you wish to cut must be in your backpack
-                return false;
-            }
-            base.ScissorHelper(from, new Leather(), 1);
+        //    if (Core.AOS && !this.IsChildOf(from.Backpack))
+        //    {
+        //        from.SendLocalizedMessage(502437); // Items you wish to cut must be in your backpack
+        //        return false;
+        //    }
+        //    base.ScissorHelper(from, new Leather(), 1);
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 
     [FlipableAttribute(0x1079, 0x1078)]
