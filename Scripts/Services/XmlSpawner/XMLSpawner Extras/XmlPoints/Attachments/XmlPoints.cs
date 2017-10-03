@@ -654,47 +654,47 @@ namespace Server.Engines.XmlSpawner2
 			from.PublicOverheadMessage( MessageType.Regular, 0x3B2, false, GetPoints(from).ToString());
 		}
 
-		//public static new void Initialize()
-		//{
-		//	// Register our speech handler
-		//	EventSink.Speech += new SpeechEventHandler( EventSink_Speech );
+		public static new void Initialize()
+		{
+			// Register our speech handler
+			EventSink.Speech += new SpeechEventHandler( EventSink_Speech );
 
-		//	CommandSystem.Register( "PointsLanguage", AccessLevel.Player, new CommandEventHandler( Language_OnCommand ) );
-		//	CommandSystem.Register( "Challenge", AccessLevel.Player, new CommandEventHandler( Challenge_OnCommand ) );
-		//	CommandSystem.Register( "LMSChallenge", AccessLevel.Player, new CommandEventHandler( LMSChallenge_OnCommand ) );
-		//	CommandSystem.Register( "TeamLMSChallenge", AccessLevel.Player, new CommandEventHandler( TeamLMSChallenge_OnCommand ) );
-		//	CommandSystem.Register( "Deathmatch", AccessLevel.Player, new CommandEventHandler( Deathmatch_OnCommand ) );
-		//	CommandSystem.Register( "TeamDeathmatch", AccessLevel.Player, new CommandEventHandler( TeamDeathmatch_OnCommand ) );
-		//	CommandSystem.Register( "DeathBall", AccessLevel.Player, new CommandEventHandler( DeathBall_OnCommand ) );
-		//	CommandSystem.Register( "KingOfTheHill", AccessLevel.Player, new CommandEventHandler( KingOfTheHill_OnCommand ) );
-		//	CommandSystem.Register( "TeamDeathBall", AccessLevel.Player, new CommandEventHandler( TeamDeathBall_OnCommand ) );
-		//	CommandSystem.Register( "TeamKotH", AccessLevel.Player, new CommandEventHandler( TeamKotH_OnCommand ) );
-		//	CommandSystem.Register( "CTFChallenge", AccessLevel.Player, new CommandEventHandler( CTFChallenge_OnCommand ) );
-		//	CommandSystem.Register( "SystemBroadcastKills", AccessLevel.GameMaster, new CommandEventHandler( SystemBroadcastKills_OnCommand ) );
-		//	CommandSystem.Register( "SeeKills", AccessLevel.Player, new CommandEventHandler( SeeKills_OnCommand ) );
-		//	CommandSystem.Register( "BroadcastKills", AccessLevel.Player, new CommandEventHandler( BroadcastKills_OnCommand ) );
-		//	CommandSystem.Register( "CheckPoints", AccessLevel.Player, new CommandEventHandler( CheckPoints_OnCommand ) );
-		//	CommandSystem.Register( "TopPlayers", AccessLevel.Player, new CommandEventHandler( TopPlayers_OnCommand ) );
-		//	CommandSystem.Register( "AddAllPoints", AccessLevel.Administrator, new CommandEventHandler( AddAllPoints_OnCommand ) );
-		//	CommandSystem.Register( "RemoveAllPoints", AccessLevel.Administrator, new CommandEventHandler( RemoveAllPoints_OnCommand ) );
-		//	CommandSystem.Register( "LeaderboardSave", AccessLevel.Administrator, new CommandEventHandler( LeaderboardSave_OnCommand ) );
+			CommandSystem.Register( "PointsLanguage", AccessLevel.Player, new CommandEventHandler( Language_OnCommand ) );
+			CommandSystem.Register( "Challenge", AccessLevel.Player, new CommandEventHandler( Challenge_OnCommand ) );
+			CommandSystem.Register( "LMSChallenge", AccessLevel.Player, new CommandEventHandler( LMSChallenge_OnCommand ) );
+			CommandSystem.Register( "TeamLMSChallenge", AccessLevel.Player, new CommandEventHandler( TeamLMSChallenge_OnCommand ) );
+			CommandSystem.Register( "Deathmatch", AccessLevel.Player, new CommandEventHandler( Deathmatch_OnCommand ) );
+			CommandSystem.Register( "TeamDeathmatch", AccessLevel.Player, new CommandEventHandler( TeamDeathmatch_OnCommand ) );
+			CommandSystem.Register( "DeathBall", AccessLevel.Player, new CommandEventHandler( DeathBall_OnCommand ) );
+			CommandSystem.Register( "KingOfTheHill", AccessLevel.Player, new CommandEventHandler( KingOfTheHill_OnCommand ) );
+			CommandSystem.Register( "TeamDeathBall", AccessLevel.Player, new CommandEventHandler( TeamDeathBall_OnCommand ) );
+			CommandSystem.Register( "TeamKotH", AccessLevel.Player, new CommandEventHandler( TeamKotH_OnCommand ) );
+			CommandSystem.Register( "CTFChallenge", AccessLevel.Player, new CommandEventHandler( CTFChallenge_OnCommand ) );
+			CommandSystem.Register( "SystemBroadcastKills", AccessLevel.GameMaster, new CommandEventHandler( SystemBroadcastKills_OnCommand ) );
+			CommandSystem.Register( "SeeKills", AccessLevel.Player, new CommandEventHandler( SeeKills_OnCommand ) );
+			CommandSystem.Register( "BroadcastKills", AccessLevel.Player, new CommandEventHandler( BroadcastKills_OnCommand ) );
+			CommandSystem.Register( "CheckPoints", AccessLevel.Player, new CommandEventHandler( CheckPoints_OnCommand ) );
+			CommandSystem.Register( "TopPlayers", AccessLevel.Player, new CommandEventHandler( TopPlayers_OnCommand ) );
+			CommandSystem.Register( "AddAllPoints", AccessLevel.Administrator, new CommandEventHandler( AddAllPoints_OnCommand ) );
+			CommandSystem.Register( "RemoveAllPoints", AccessLevel.Administrator, new CommandEventHandler( RemoveAllPoints_OnCommand ) );
+			CommandSystem.Register( "LeaderboardSave", AccessLevel.Administrator, new CommandEventHandler( LeaderboardSave_OnCommand ) );
 
-		//	foreach(Item i in World.Items.Values)
-		//	{
-		//		if(i is BaseChallengeGame && !((BaseChallengeGame)i).GameCompleted)
-		//		{
-		//			// find the region it is in
-		//			// is this in a challenge game region?
-		//			Region r = Region.Find(i.Location, i.Map);
-		//			if(r is ChallengeGameRegion)
-		//			{
-		//				ChallengeGameRegion cgr = r as ChallengeGameRegion;
+			foreach(Item i in World.Items.Values)
+			{
+				if(i is BaseChallengeGame && !((BaseChallengeGame)i).GameCompleted)
+				{
+					// find the region it is in
+					// is this in a challenge game region?
+					Region r = Region.Find(i.Location, i.Map);
+					if(r is ChallengeGameRegion)
+					{
+						ChallengeGameRegion cgr = r as ChallengeGameRegion;
 						
-		//				cgr.ChallengeGame = i as BaseChallengeGame;
-		//			}
-		//		}
-		//	}
-		//}
+						cgr.ChallengeGame = i as BaseChallengeGame;
+					}
+				}
+			}
+		}
 		
 		public static void WriteLeaderboardXml(string filename, int nranks)
 		{
