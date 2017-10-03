@@ -277,6 +277,11 @@ namespace Server.Spells
 			FinishSequence();
 		}
 
+        /// <summary>
+        /// Pre-ML code where mobile can change directions, but doesn't move
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
 		public virtual bool OnCasterMoving(Direction d)
 		{
             if (IsCasting && BlocksMovement && (!(m_Caster is BaseCreature) || ((BaseCreature)m_Caster).FreezeOnCast))
@@ -290,6 +295,21 @@ namespace Server.Spells
 
 			return true;
 		}
+
+        /// <summary>
+        /// Post ML code where player is frozen in place while casting.
+        /// </summary>
+        /// <param name="caster"></param>
+        /// <returns></returns>
+        public virtual bool CheckMovement(Mobile caster)
+        {
+            if (IsCasting && BlocksMovement && (!(m_Caster is BaseCreature) || ((BaseCreature)m_Caster).FreezeOnCast))
+            {
+                return false;
+            }
+
+            return true;
+        }
 
 		public virtual bool OnCasterEquiping(Item item)
 		{
@@ -546,6 +566,7 @@ namespace Server.Spells
 
 				m_State = SpellState.None;
 				m_Caster.Spell = null;
+                Caster.Delta(MobileDelta.Flags);
 
 				OnDisturb(type, true);
 
@@ -575,6 +596,7 @@ namespace Server.Spells
 
 				m_State = SpellState.None;
 				m_Caster.Spell = null;
+                Caster.Delta(MobileDelta.Flags);
 
 				OnDisturb(type, false);
 
@@ -732,6 +754,8 @@ namespace Server.Spells
 				{
 					m_State = SpellState.Casting;
 					m_Caster.Spell = this;
+
+                    Caster.Delta(MobileDelta.Flags);
 
 					if (!(m_Scroll is BaseWand) && RevealOnCast)
 					{
@@ -1028,7 +1052,14 @@ namespace Server.Spells
 
 		public virtual void FinishSequence()
 		{
+            SpellState oldState = m_State;
+
 			m_State = SpellState.None;
+
+            if (oldState == SpellState.Casting)
+            {
+                Caster.Delta(MobileDelta.Flags);
+            }
 
 			if (m_Caster.Spell == this)
 			{
@@ -1230,17 +1261,24 @@ namespace Server.Spells
 					return;
 				}
 
-				if (!m_Spell.Caster.Mounted && m_Spell.m_Info.Action >= 0)
-				{
-					if (m_Spell.Caster.Body.IsHuman)
-					{
-						m_Spell.Caster.Animate(m_Spell.m_Info.Action, 7, 1, true, false, 0);
-					}
-					else if (m_Spell.Caster.Player && m_Spell.Caster.Body.IsMonster)
-					{
-						m_Spell.Caster.Animate(12, 7, 1, true, false, 0);
-					}
-				}
+                if (!m_Spell.Caster.Mounted && m_Spell.m_Info.Action >= 0)
+                {
+                    if (Core.SA)
+                    {
+                        m_Spell.Caster.Animate(AnimationType.Spell, 0);
+                    }
+                    else
+                    {
+                        if (m_Spell.Caster.Body.IsHuman)
+                        {
+                            m_Spell.Caster.Animate(m_Spell.m_Info.Action, 7, 1, true, false, 0);
+                        }
+                        else if (m_Spell.Caster.Player && m_Spell.Caster.Body.IsMonster)
+                        {
+                            m_Spell.Caster.Animate(12, 7, 1, true, false, 0);
+                        }
+                    }
+                }
 
 				if (!Running)
 				{
@@ -1272,12 +1310,15 @@ namespace Server.Spells
 					m_Spell.m_State = SpellState.Sequencing;
 					m_Spell.m_CastTimer = null;
 					m_Spell.m_Caster.OnSpellCast(m_Spell);
+
+                    m_Spell.Caster.Delta(MobileDelta.Flags);
+
 					if (m_Spell.m_Caster.Region != null)
 					{
 						m_Spell.m_Caster.Region.OnSpellCast(m_Spell.m_Caster, m_Spell);
 					}
+
 					m_Spell.m_Caster.NextSpellTime = Core.TickCount + (int)m_Spell.GetCastRecovery().TotalMilliseconds;
-						// Spell.NextSpellDelay;
 
 					Target originalTarget = m_Spell.m_Caster.Target;
 

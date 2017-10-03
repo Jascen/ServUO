@@ -1112,7 +1112,7 @@ namespace Server.Items
 					m_MageMod.Remove();
 				}
 
-				m_MageMod = new DefaultSkillMod(SkillName.Magery, true, -30 + m_AosWeaponAttributes.MageWeapon);
+                m_MageMod = new DefaultSkillMod(SkillName.Magery, true, -30 + m_AosWeaponAttributes.MageWeapon);
 				from.AddSkillMod(m_MageMod);
 			}
 
@@ -1778,6 +1778,11 @@ namespace Server.Items
 				{
 					defender.FixedEffect(0x37B9, 10, 16);
 					damage = 0;
+
+                    if (Core.SA)
+                    {
+                        defender.Animate(AnimationType.Parry, 0);
+                    }
 
 					// Successful block removes the Honorable Execution penalty.
 					HonorableExecution.RemovePenalty(defender);
@@ -2851,55 +2856,28 @@ namespace Server.Items
 			XmlAttach.OnWeaponHit(this, attacker, defender, damageGiven);
 		}
 
-		public virtual double GetAosDamage(Mobile attacker, int bonus, int dice, int sides)
+		public virtual double GetAosSpellDamage(Mobile attacker, Mobile defender, int bonus, int dice, int sides)
 		{
-			int damage = Utility.Dice(dice, sides, bonus) * 100;
-			int damageBonus = 0;
+            int damage = Utility.Dice(dice, sides, bonus) * 100;
+            int damageBonus = 0;
 
-			// Inscription bonus
-			int inscribeSkill = attacker.Skills[SkillName.Inscribe].Fixed;
+            int inscribeSkill = attacker.Skills[SkillName.Inscribe].Fixed;
+            int inscribeBonus = (inscribeSkill + (1000 * (inscribeSkill / 1000))) / 200;
 
-			if (inscribeSkill >= 1000)
-			{
-				damageBonus += 10;
-			}
+            damageBonus += inscribeBonus;
+            damageBonus += attacker.Int / 10;
+            damageBonus += SpellHelper.GetSpellDamageBonus(attacker, defender, SkillName.Magery, attacker is PlayerMobile && defender is PlayerMobile);
+            damage = AOS.Scale(damage, 100 + damageBonus);
 
-			if (attacker.Player)
-			{
-				// Int bonus
-				damageBonus += (attacker.Int / 10);
+            if (defender != null && Feint.Registry.ContainsKey(defender) && Feint.Registry[defender].Enemy == attacker)
+                damage -= (int)((double)damage * ((double)Feint.Registry[defender].DamageReduction / 100));
 
-				// SDI bonus
-				damageBonus += AosAttributes.GetValue(attacker, AosAttribute.SpellDamage);
+            // All hit spells use 80 eval
+            int evalScale = 30 + ((9 * 800) / 100);
 
-				if (attacker.Race == Race.Gargoyle)
-				{
-					double perc = ((double)attacker.Hits / (double)attacker.HitsMax) * 100;
+            damage = AOS.Scale(damage, evalScale);
 
-					perc = 100 - perc;
-					perc /= 20;
-
-					if (perc > 4)
-						damageBonus += 12;
-					else if (perc >= 3)
-						damageBonus += 9;
-					else if (perc >= 2)
-						damageBonus += 6;
-					else if (perc >= 1)
-						damageBonus += 3;
-				}
-
-				TransformContext context = TransformationSpellHelper.GetContext(attacker);
-
-				if (context != null && context.Spell is ReaperFormSpell)
-				{
-					damageBonus += ((ReaperFormSpell)context.Spell).SpellDamageBonus;
-				}
-			}
-
-			damage = AOS.Scale(damage, 100 + damageBonus);
-
-			return damage / 100;
+            return damage / 100;
 		}
 
 		#region Do<AoSEffect>
@@ -2912,7 +2890,7 @@ namespace Server.Items
 
 			attacker.DoHarmful(defender);
 
-			double damage = GetAosDamage(attacker, 10, 1, 4);
+			double damage = GetAosSpellDamage(attacker, defender, 10, 1, 4);
 
 			attacker.MovingParticles(defender, 0x36E4, 5, 0, false, true, 3006, 4006, 0);
 			attacker.PlaySound(0x1E5);
@@ -2929,7 +2907,7 @@ namespace Server.Items
 
 			attacker.DoHarmful(defender);
 
-			double damage = GetAosDamage(attacker, 17, 1, 5);
+			double damage = GetAosSpellDamage(attacker, defender, 17, 1, 5);
 
 			if (!defender.InRange(attacker, 2))
 			{
@@ -2955,7 +2933,7 @@ namespace Server.Items
 
 			attacker.DoHarmful(defender);
 
-			double damage = GetAosDamage(attacker, 19, 1, 5);
+			double damage = GetAosSpellDamage(attacker, defender, 19, 1, 5);
 
 			attacker.MovingParticles(defender, 0x36D4, 7, 0, false, true, 9502, 4019, 0x160);
 			attacker.PlaySound(0x15E);
@@ -2972,7 +2950,7 @@ namespace Server.Items
 
 			attacker.DoHarmful(defender);
 
-			double damage = GetAosDamage(attacker, 23, 1, 4);
+			double damage = GetAosSpellDamage(attacker, defender, 23, 1, 4);
 
 			defender.BoltEffect(0);
 
@@ -3644,115 +3622,149 @@ namespace Server.Items
 
 		public virtual void PlayHurtAnimation(Mobile from)
 		{
-			int action;
-			int frames;
-
-			switch (from.Body.Type)
-			{
-				case BodyType.Sea:
-				case BodyType.Animal:
-					{
-						action = 7;
-						frames = 5;
-						break;
-					}
-				case BodyType.Monster:
-					{
-						action = 10;
-						frames = 4;
-						break;
-					}
-				case BodyType.Human:
-					{
-						action = 20;
-						frames = 5;
-						break;
-					}
-				default:
-					return;
-			}
-
 			if (from.Mounted)
 			{
 				return;
 			}
 
-			from.Animate(action, frames, 1, true, false, 0);
-		}
+            if (Core.SA)
+            {
+                from.Animate(AnimationType.Impact, 0);
+            }
+            else
+            {
+                int action;
+                int frames;
+
+                switch (from.Body.Type)
+                {
+                    case BodyType.Sea:
+                    case BodyType.Animal:
+                        {
+                            action = 7;
+                            frames = 5;
+                            break;
+                        }
+                    case BodyType.Monster:
+                        {
+                            action = 10;
+                            frames = 4;
+                            break;
+                        }
+                    case BodyType.Human:
+                        {
+                            action = 20;
+                            frames = 5;
+                            break;
+                        }
+                    default:
+                        return;
+                }
+
+                from.Animate(action, frames, 1, true, false, 0);
+            }
+        }
 
 		public virtual void PlaySwingAnimation(Mobile from)
 		{
 			int action;
 
-			switch (from.Body.Type)
-			{
-				case BodyType.Sea:
-				case BodyType.Animal:
-					{
-						action = Utility.Random(5, 2);
-						break;
-					}
-				case BodyType.Monster:
-					{
-						switch (Animation)
-						{
-							default:
-							case WeaponAnimation.Wrestle:
-							case WeaponAnimation.Bash1H:
-							case WeaponAnimation.Pierce1H:
-							case WeaponAnimation.Slash1H:
-							case WeaponAnimation.Bash2H:
-							case WeaponAnimation.Pierce2H:
-							case WeaponAnimation.Slash2H:
-								action = Utility.Random(4, 3);
-								break;
-							case WeaponAnimation.ShootBow:
-								return; // 7
-							case WeaponAnimation.ShootXBow:
-								return; // 8
-						}
+            if (Core.SA)
+            {
+                action = GetNewAnimationAction(from);
 
-						break;
-					}
-				case BodyType.Human:
-					{
-						if (!from.Mounted)
-						{
-							action = (int)Animation;
-						}
-						else
-						{
-							switch (Animation)
-							{
-								default:
-								case WeaponAnimation.Wrestle:
-								case WeaponAnimation.Bash1H:
-								case WeaponAnimation.Pierce1H:
-								case WeaponAnimation.Slash1H:
-									action = 26;
-									break;
-								case WeaponAnimation.Bash2H:
-								case WeaponAnimation.Pierce2H:
-								case WeaponAnimation.Slash2H:
-									action = 29;
-									break;
-								case WeaponAnimation.ShootBow:
-									action = 27;
-									break;
-								case WeaponAnimation.ShootXBow:
-									action = 28;
-									break;
-							}
-						}
+                from.Animate(AnimationType.Attack, action); 
+            }
+            else
+            {
+                switch (from.Body.Type)
+                {
+                    case BodyType.Sea:
+                    case BodyType.Animal:
+                        {
+                            action = Utility.Random(5, 2);
+                            break;
+                        }
+                    case BodyType.Monster:
+                        {
+                            switch (Animation)
+                            {
+                                default:
+                                case WeaponAnimation.Wrestle:
+                                case WeaponAnimation.Bash1H:
+                                case WeaponAnimation.Pierce1H:
+                                case WeaponAnimation.Slash1H:
+                                case WeaponAnimation.Bash2H:
+                                case WeaponAnimation.Pierce2H:
+                                case WeaponAnimation.Slash2H:
+                                    action = Utility.Random(4, 3);
+                                    break;
+                                case WeaponAnimation.ShootBow:
+                                    return; // 7
+                                case WeaponAnimation.ShootXBow:
+                                    return; // 8
+                            }
 
-						break;
-					}
-				default:
-					return;
-			}
+                            break;
+                        }
+                    case BodyType.Human:
+                        {
+                            if (!from.Mounted)
+                            {
+                                action = (int)Animation;
+                            }
+                            else
+                            {
+                                switch (Animation)
+                                {
+                                    default:
+                                    case WeaponAnimation.Wrestle:
+                                    case WeaponAnimation.Bash1H:
+                                    case WeaponAnimation.Pierce1H:
+                                    case WeaponAnimation.Slash1H:
+                                        action = 26;
+                                        break;
+                                    case WeaponAnimation.Bash2H:
+                                    case WeaponAnimation.Pierce2H:
+                                    case WeaponAnimation.Slash2H:
+                                        action = 29;
+                                        break;
+                                    case WeaponAnimation.ShootBow:
+                                        action = 27;
+                                        break;
+                                    case WeaponAnimation.ShootXBow:
+                                        action = 28;
+                                        break;
+                                }
+                            }
 
-			from.Animate(action, 7, 1, true, false, 0);
+                            break;
+                        }
+                    default:
+                        return;
+                }
+
+                from.Animate(action, 7, 1, true, false, 0);
+            }
 		}
+
+        public int GetNewAnimationAction(Mobile from)
+        {
+            switch (Animation)
+            {
+                default:
+                case WeaponAnimation.Wrestle: return 0;
+                case WeaponAnimation.Bash1H: return 3;
+                case WeaponAnimation.Pierce1H: return 5;
+                case WeaponAnimation.Slash1H: return 4;
+                case WeaponAnimation.Bash2H: return 6;
+                case WeaponAnimation.Pierce2H: return 8;
+                case WeaponAnimation.Slash2H: return 7;
+                case WeaponAnimation.ShootBow: return 1;
+                case WeaponAnimation.ShootXBow: return 2;
+                case WeaponAnimation.Throwing: return 9;
+            }
+        }
 
 		#region Serialization/Deserialization
 		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
