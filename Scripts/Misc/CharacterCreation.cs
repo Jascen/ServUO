@@ -181,7 +181,7 @@ namespace Server.Misc
    //         else
    //             newChar.Race = Race.DefaultRace;
 
-            newChar.Hue = args.Hue | 0x8000;
+     //       newChar.Hue = args.Hue | 0x8000;
 
    //         newChar.Hunger = 20;
 
