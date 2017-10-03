@@ -28,3 +28,4 @@ reportHistory.xml
 *.log
 *.bin
 *.zip
+/.vs/ServUO/v15/sqlite3/storage.ide
