@@ -135,7 +135,7 @@ namespace Server.Engines.XmlSpawner2
         
 		public static new void Initialize()
 		{
-			CommandSystem.Register( "AddSocket", AccessLevel.Player, new CommandEventHandler( AddSocket_OnCommand ) );
+			//CommandSystem.Register( "AddSocket", AccessLevel.Player, new CommandEventHandler( AddSocket_OnCommand ) );
 			TargetCommands.Register( new UpgradeAugmentCommand() );
 			TargetCommands.Register( new LimitSocketsCommand() );
 		}
@@ -1200,12 +1200,12 @@ namespace Server.Engines.XmlSpawner2
 			}
 		}
 
-		[Usage( "AddSocket" )]
-		[Description( "Attempts to add a socket to the targeted item." )]
-		public static void AddSocket_OnCommand( CommandEventArgs e )
-		{
-			e.Mobile.Target = new AddSocketToTarget();
-		}
+		//[Usage( "AddSocket" )]
+		//[Description( "Attempts to add a socket to the targeted item." )]
+		//public static void AddSocket_OnCommand( CommandEventArgs e )
+		//{
+		//	e.Mobile.Target = new AddSocketToTarget();
+		//}
 
 		private class SocketsGump : Gump
 		{
