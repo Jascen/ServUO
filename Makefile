@@ -8,7 +8,7 @@ NOWARNS=0618,0219,0414,1635
 # Detect whether we are on 64 bit environment or not
 LBITS := $(shell getconf LONG_BIT)
 ifeq ($(LBITS),64)
-  MONO=mono64
+  MONO=mono
 else
   MONO=mono
 endif
