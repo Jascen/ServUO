@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Engines.BulkOrders
 {
-    public class LargeBODAcceptGump : Gump
+    public partial class LargeBODAcceptGump : Gump
     {
         private readonly LargeBOD m_Deed;
         private readonly Mobile m_From;
@@ -83,24 +83,24 @@ namespace Server.Engines.BulkOrders
                 });
         }
 
-        public override void OnResponse(NetState sender, RelayInfo info)
-        {
-            if (info.ButtonID == 1) // Ok
-            {
-                if (this.m_From.PlaceInBackpack(this.m_Deed))
-                {
-                    this.m_From.SendLocalizedMessage(1045152); // The bulk order deed has been placed in your backpack.
-                }
-                else
-                {
-                    this.m_From.SendLocalizedMessage(1045150); // There is not enough room in your backpack for the deed.
-                    this.m_Deed.Delete();
-                }
-            }
-            else
-            {
-                this.m_Deed.Delete();
-            }
-        }
+        //public override void OnResponse(NetState sender, RelayInfo info)
+        //{
+        //    if (info.ButtonID == 1) // Ok
+        //    {
+        //        if (this.m_From.PlaceInBackpack(this.m_Deed))
+        //        {
+        //            this.m_From.SendLocalizedMessage(1045152); // The bulk order deed has been placed in your backpack.
+        //        }
+        //        else
+        //        {
+        //            this.m_From.SendLocalizedMessage(1045150); // There is not enough room in your backpack for the deed.
+        //            this.m_Deed.Delete();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        this.m_Deed.Delete();
+        //    }
+        //}
     }
 }
