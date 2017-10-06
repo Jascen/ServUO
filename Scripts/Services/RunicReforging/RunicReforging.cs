@@ -65,7 +65,7 @@ namespace Server.Items
         ReforgedLegendary
     }
 
-    public static class RunicReforging
+    public static partial class RunicReforging
     {
         public static bool CanReforge(Mobile from, Item item, CraftSystem crsystem)
         {
@@ -2829,367 +2829,367 @@ namespace Server.Items
 
         #endregion
 
-        #region Tables
-        #region All
-        public static int[][] DexIntTable = new int[][]
-        {
-            new int[] { 3, 4, 4, 4, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-        };
+        //#region Tables
+        //#region All
+        //public static int[][] DexIntTable = new int[][]
+        //{
+        //    new int[] { 3, 4, 4, 4, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //};
 
-        public static int[][] LowerStatReqTable = new int[][]
-        {
-            new int[] { 60, 70, 80, 100, 100, 100, 100 },
-            new int[] { 80, 100, 100, 100, 100, 100, 100 },
-            new int[] { 100, 100, 100, 100, 100, 100, 100 },
-            new int[] { 70, 100, 100, 100, 100, 100, 100 },
-            new int[] { 80, 100, 100, 100, 100, 100, 100 },
-            new int[] { 100, 100, 100, 100, 100, 100, 100 },
-        };
+        //public static int[][] LowerStatReqTable = new int[][]
+        //{
+        //    new int[] { 60, 70, 80, 100, 100, 100, 100 },
+        //    new int[] { 80, 100, 100, 100, 100, 100, 100 },
+        //    new int[] { 100, 100, 100, 100, 100, 100, 100 },
+        //    new int[] { 70, 100, 100, 100, 100, 100, 100 },
+        //    new int[] { 80, 100, 100, 100, 100, 100, 100 },
+        //    new int[] { 100, 100, 100, 100, 100, 100, 100 },
+        //};
 
-        public static int[][] SelfRepairTable = new int[][]
-        {
-            new int[] { 2, 4, 0, 0, 0, 0, 0 },
-            new int[] { 5, 5, 0, 0, 0, 0, 0 },
-            new int[] { 6, 7, 0, 0, 0, 0, 0 },
-            new int[] { 5, 5, 0, 0, 0, 0, 0 },
-            new int[] { 5, 5, 0, 0, 0, 0, 0 },
-            new int[] { 7, 7, 0, 0, 0, 0, 0 },
-        };
+        //public static int[][] SelfRepairTable = new int[][]
+        //{
+        //    new int[] { 2, 4, 0, 0, 0, 0, 0 },
+        //    new int[] { 5, 5, 0, 0, 0, 0, 0 },
+        //    new int[] { 6, 7, 0, 0, 0, 0, 0 },
+        //    new int[] { 5, 5, 0, 0, 0, 0, 0 },
+        //    new int[] { 5, 5, 0, 0, 0, 0, 0 },
+        //    new int[] { 7, 7, 0, 0, 0, 0, 0 },
+        //};
 
-        public static int[][] DurabilityTable = new int[][]
-        {
-            new int[] { 90, 100, 0, 0, 0, 0, 0 },
-            new int[] { 110, 140, 0, 0, 0, 0, 0 },
-            new int[] { 150, 150, 0, 0, 0, 0, 0 },
-            new int[] { 100, 140, 0, 0, 0, 0, 0 },
-            new int[] { 110, 140, 0, 0, 0, 0, 0 },
-            new int[] { 150, 150, 0, 0, 0, 0, 0 },
-        };
+        //public static int[][] DurabilityTable = new int[][]
+        //{
+        //    new int[] { 90, 100, 0, 0, 0, 0, 0 },
+        //    new int[] { 110, 140, 0, 0, 0, 0, 0 },
+        //    new int[] { 150, 150, 0, 0, 0, 0, 0 },
+        //    new int[] { 100, 140, 0, 0, 0, 0, 0 },
+        //    new int[] { 110, 140, 0, 0, 0, 0, 0 },
+        //    new int[] { 150, 150, 0, 0, 0, 0, 0 },
+        //};
 
-        public static int[][] ResistTable = new int[][]
-        {
-            new int[] { 10, 15, 15, 15, 20, 20, 20 },
-            new int[] { 15, 15, 15, 20, 20, 20, 20 },
-            new int[] { 20, 20, 20, 20, 20, 20, 20 },
-            new int[] { 20, 20, 20, 20, 20, 20, 20 },
-            new int[] { 15, 15, 20, 20, 20, 20, 20 },
-            new int[] { 20, 20, 20, 20, 20, 20, 20 },
-        };
+        //public static int[][] ResistTable = new int[][]
+        //{
+        //    new int[] { 10, 15, 15, 15, 20, 20, 20 },
+        //    new int[] { 15, 15, 15, 20, 20, 20, 20 },
+        //    new int[] { 20, 20, 20, 20, 20, 20, 20 },
+        //    new int[] { 20, 20, 20, 20, 20, 20, 20 },
+        //    new int[] { 15, 15, 20, 20, 20, 20, 20 },
+        //    new int[] { 20, 20, 20, 20, 20, 20, 20 },
+        //};
 
-        public static int[][] EaterTable = new int[][]
-        {
-            new int[] { 9, 12, 12, 15, 15, 15, 15 },
-            new int[] { 12, 15, 15, 15, 15, 15, 15 },
-            new int[] { 15, 15, 15, 15, 15, 15, 15 },
-            new int[] { 12, 15, 15, 15, 15, 15, 15 },
-            new int[] { 12, 15, 15, 15, 15, 15, 15 },
-            new int[] { 15, 15, 15, 15, 15, 15, 15 },
-        };
-        #endregion
+        //public static int[][] EaterTable = new int[][]
+        //{
+        //    new int[] { 9, 12, 12, 15, 15, 15, 15 },
+        //    new int[] { 12, 15, 15, 15, 15, 15, 15 },
+        //    new int[] { 15, 15, 15, 15, 15, 15, 15 },
+        //    new int[] { 12, 15, 15, 15, 15, 15, 15 },
+        //    new int[] { 12, 15, 15, 15, 15, 15, 15 },
+        //    new int[] { 15, 15, 15, 15, 15, 15, 15 },
+        //};
+        //#endregion
 
-        #region Weapon Tables
-        // Hit magic, area, HLA
-        public static int[][] HitWeaponTable1 = new int[][]
-        {
-            new int[] { 30, 50, 50, 60, 70, 70, 70 },
-            new int[] { 50, 60, 70, 70, 70, 70, 70 },
-            new int[] { 70, 70, 70, 70, 70, 70, 70 },
-            new int[] {  },
-            new int[] { 50, 60, 70, 70, 70, 70, 70 },
-            new int[] { 70, 70, 70, 70, 70, 70, 70 },
-        };
+        //#region Weapon Tables
+        //// Hit magic, area, HLA
+        //public static int[][] HitWeaponTable1 = new int[][]
+        //{
+        //    new int[] { 30, 50, 50, 60, 70, 70, 70 },
+        //    new int[] { 50, 60, 70, 70, 70, 70, 70 },
+        //    new int[] { 70, 70, 70, 70, 70, 70, 70 },
+        //    new int[] {  },
+        //    new int[] { 50, 60, 70, 70, 70, 70, 70 },
+        //    new int[] { 70, 70, 70, 70, 70, 70, 70 },
+        //};
 
-        // hit fatigue, mana drain, HLD
-        public static int[][] HitWeaponTable2 = new int[][]
-        {
-            new int[] { 30, 40, 50, 50, 60, 70, 70 },
-            new int[] { 50, 50, 50, 60, 70, 70, 70 },
-            new int[] { 50, 60, 70, 70, 70, 70, 70 },
-            new int[] {  },
-            new int[] { 50, 50, 50, 60, 70, 70, 70 },
-            new int[] { 70, 70, 70, 70, 70, 70, 70 },
-        };
+        //// hit fatigue, mana drain, HLD
+        //public static int[][] HitWeaponTable2 = new int[][]
+        //{
+        //    new int[] { 30, 40, 50, 50, 60, 70, 70 },
+        //    new int[] { 50, 50, 50, 60, 70, 70, 70 },
+        //    new int[] { 50, 60, 70, 70, 70, 70, 70 },
+        //    new int[] {  },
+        //    new int[] { 50, 50, 50, 60, 70, 70, 70 },
+        //    new int[] { 70, 70, 70, 70, 70, 70, 70 },
+        //};
 
-        public static int[][] WeaponVelocityTable = new int[][]
-        {
-            new int[] { 25, 35, 40, 40, 40, 45, 50 },
-            new int[] { 40, 40, 40, 45, 50, 50, 50 },
-            new int[] { 40, 45, 50, 50, 50, 50, 50 },
-            new int[] {  },
-            new int[] { 40, 40, 40, 45, 50, 50, 50 },
-            new int[] { 45, 50, 50, 50, 50, 50, 50 },
-        };
+        //public static int[][] WeaponVelocityTable = new int[][]
+        //{
+        //    new int[] { 25, 35, 40, 40, 40, 45, 50 },
+        //    new int[] { 40, 40, 40, 45, 50, 50, 50 },
+        //    new int[] { 40, 45, 50, 50, 50, 50, 50 },
+        //    new int[] {  },
+        //    new int[] { 40, 40, 40, 45, 50, 50, 50 },
+        //    new int[] { 45, 50, 50, 50, 50, 50, 50 },
+        //};
 
-        public static int[][] HitsAndManaLeechTable = new int[][]
-        {
-            new int[] { 15, 25, 25, 30, 35, 35, 35 },
-            new int[] { 25, 25, 30, 35, 35, 35, 35 },
-            new int[] { 30, 35, 35, 35, 35, 35, 35 },
-            new int[] {  },
-            new int[] { 25, 25, 30, 35, 35, 35, 35 },
-            new int[] { 35, 35, 35, 35, 35, 35, 35 },
-        };
+        //public static int[][] HitsAndManaLeechTable = new int[][]
+        //{
+        //    new int[] { 15, 25, 25, 30, 35, 35, 35 },
+        //    new int[] { 25, 25, 30, 35, 35, 35, 35 },
+        //    new int[] { 30, 35, 35, 35, 35, 35, 35 },
+        //    new int[] {  },
+        //    new int[] { 25, 25, 30, 35, 35, 35, 35 },
+        //    new int[] { 35, 35, 35, 35, 35, 35, 35 },
+        //};
 
-        public static int[][] HitStamLeechTable = new int[][]
-        {
-            new int[] { 30, 50, 50, 60, 70, 70, 70 },
-            new int[] { 50, 60, 70, 70, 70, 70, 70 },
-            new int[] { 70, 70, 70, 70, 70, 70, 70 },
-            new int[] {  },
-            new int[] { 50, 60, 70, 70, 70, 70, 70 },
-            new int[] { 70, 70, 70, 70, 70, 70, 70 },
-        };
+        //public static int[][] HitStamLeechTable = new int[][]
+        //{
+        //    new int[] { 30, 50, 50, 60, 70, 70, 70 },
+        //    new int[] { 50, 60, 70, 70, 70, 70, 70 },
+        //    new int[] { 70, 70, 70, 70, 70, 70, 70 },
+        //    new int[] {  },
+        //    new int[] { 50, 60, 70, 70, 70, 70, 70 },
+        //    new int[] { 70, 70, 70, 70, 70, 70, 70 },
+        //};
 
-        public static int[][] LuckTable = new int[][]
-        {
-            new int[] { 80, 100, 100, 120, 140, 150, 150 },
-            new int[] { 100, 120, 140, 150, 150, 150, 150 },
-            new int[] { 130, 150, 150, 150, 150, 150, 150 },
-            new int[] { 100, 120, 140, 150, 150, 150, 150 },
-            new int[] { 100, 120, 140, 150, 150, 150, 150 },
-            new int[] { 150, 150, 150, 150, 150, 150, 150 },
-        };
+        //public static int[][] LuckTable = new int[][]
+        //{
+        //    new int[] { 80, 100, 100, 120, 140, 150, 150 },
+        //    new int[] { 100, 120, 140, 150, 150, 150, 150 },
+        //    new int[] { 130, 150, 150, 150, 150, 150, 150 },
+        //    new int[] { 100, 120, 140, 150, 150, 150, 150 },
+        //    new int[] { 100, 120, 140, 150, 150, 150, 150 },
+        //    new int[] { 150, 150, 150, 150, 150, 150, 150 },
+        //};
 
-        public static int[][] MageWeaponTable = new int[][]
-        {
-            new int[] { 25, 20, 20, 20, 20, 15, 15 },
-            new int[] { 20, 20, 20, 15, 15, 15, 15 },
-            new int[] { 20, 15, 15, 15, 15, 15, 15 },
-            new int[] {  },
-            new int[] { 20, 20, 20, 15, 15, 15, 15 },
-            new int[] { 15, 15, 15, 15, 15, 15, 15 },
-        };
+        //public static int[][] MageWeaponTable = new int[][]
+        //{
+        //    new int[] { 25, 20, 20, 20, 20, 15, 15 },
+        //    new int[] { 20, 20, 20, 15, 15, 15, 15 },
+        //    new int[] { 20, 15, 15, 15, 15, 15, 15 },
+        //    new int[] {  },
+        //    new int[] { 20, 20, 20, 15, 15, 15, 15 },
+        //    new int[] { 15, 15, 15, 15, 15, 15, 15 },
+        //};
 
-        public static int[][] WeaponRegenTable = new int[][]
-        {
-            new int[] { 2, 3, 6, 6, 6, 6, 6 },
-            new int[] { 3, 6, 6, 6, 6, 6, 6 },
-            new int[] { 6, 6, 6, 6, 6, 9, 9 },
-            new int[] {  },
-            new int[] { 3, 6, 6, 6, 6, 6, 9 },
-            new int[] { 6, 9, 9, 9, 9, 9, 9 },
-        };
+        //public static int[][] WeaponRegenTable = new int[][]
+        //{
+        //    new int[] { 2, 3, 6, 6, 6, 6, 6 },
+        //    new int[] { 3, 6, 6, 6, 6, 6, 6 },
+        //    new int[] { 6, 6, 6, 6, 6, 9, 9 },
+        //    new int[] {  },
+        //    new int[] { 3, 6, 6, 6, 6, 6, 9 },
+        //    new int[] { 6, 9, 9, 9, 9, 9, 9 },
+        //};
 
-        public static int[][] WeaponHitsTable = new int[][]
-        {
-            new int[] { 2, 3, 3, 3, 4, 4, 4 },
-            new int[] { 3, 3, 4, 4, 4, 4, 4 },
-            new int[] { 4, 4, 4, 4, 4, 4, 4 },
-            new int[] { },
-            new int[] { 3, 3, 4, 4, 4, 4, 4 },
-            new int[] { 4, 4, 4, 4, 4, 4, 4 },
-        };
+        //public static int[][] WeaponHitsTable = new int[][]
+        //{
+        //    new int[] { 2, 3, 3, 3, 4, 4, 4 },
+        //    new int[] { 3, 3, 4, 4, 4, 4, 4 },
+        //    new int[] { 4, 4, 4, 4, 4, 4, 4 },
+        //    new int[] { },
+        //    new int[] { 3, 3, 4, 4, 4, 4, 4 },
+        //    new int[] { 4, 4, 4, 4, 4, 4, 4 },
+        //};
 
-        public static int[][] WeaponStamManaLMCTable = new int[][]
-        {
-            new int[] { 2, 4, 4, 4, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] { },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-        };
+        //public static int[][] WeaponStamManaLMCTable = new int[][]
+        //{
+        //    new int[] { 2, 4, 4, 4, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] { },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //};
 
-        public static int[][] WeaponStrTable = new int[][]
-        {
-            new int[] { 2, 4, 4, 4, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] {  },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-        };
+        //public static int[][] WeaponStrTable = new int[][]
+        //{
+        //    new int[] { 2, 4, 4, 4, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] {  },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //};
 
-        public static int[][] WeaponHCITable = new int[][]
-        {
-            new int[] { 5, 10, 15, 15, 15, 20, 20 },
-            new int[] { 15, 15, 15, 20, 20, 20, 20 },
-            new int[] { 15, 20, 20, 20, 20, 20, 20 },
-            new int[] {  },
-            new int[] { 15, 15, 20, 20, 20, 20, 20 },
-            new int[] { 20, 20, 20, 20, 20, 20, 20 },
-        };
+        //public static int[][] WeaponHCITable = new int[][]
+        //{
+        //    new int[] { 5, 10, 15, 15, 15, 20, 20 },
+        //    new int[] { 15, 15, 15, 20, 20, 20, 20 },
+        //    new int[] { 15, 20, 20, 20, 20, 20, 20 },
+        //    new int[] {  },
+        //    new int[] { 15, 15, 20, 20, 20, 20, 20 },
+        //    new int[] { 20, 20, 20, 20, 20, 20, 20 },
+        //};
 
-        public static int[][] WeaponDCITable = new int[][]
-        {
-            new int[] { 10, 15, 15, 15, 20, 20, 20 },
-            new int[] { 15, 15, 20, 20, 20, 20, 20 },
-            new int[] { 20, 20, 20, 20, 20, 20, 20 },
-            new int[] {  },
-            new int[] { 15, 15, 20, 20, 20, 20, 20 },
-            new int[] { 20, 20, 20, 20, 20, 20, 20 },
-        };
+        //public static int[][] WeaponDCITable = new int[][]
+        //{
+        //    new int[] { 10, 15, 15, 15, 20, 20, 20 },
+        //    new int[] { 15, 15, 20, 20, 20, 20, 20 },
+        //    new int[] { 20, 20, 20, 20, 20, 20, 20 },
+        //    new int[] {  },
+        //    new int[] { 15, 15, 20, 20, 20, 20, 20 },
+        //    new int[] { 20, 20, 20, 20, 20, 20, 20 },
+        //};
 
-        public static int[][] WeaponDamageTable = new int[][]
-        {
-            new int[] { 30, 50, 50, 60, 70, 70, 70 },
-            new int[] { 50, 60, 70, 70, 70, 70, 70 },
-            new int[] { 70, 70, 70, 70, 70, 70, 70 },
-            new int[] {  },
-            new int[] { 50, 60, 70, 70, 70, 70, 70 },
-            new int[] { 70, 70, 70, 70, 70, 70, 70 },
-        };
+        //public static int[][] WeaponDamageTable = new int[][]
+        //{
+        //    new int[] { 30, 50, 50, 60, 70, 70, 70 },
+        //    new int[] { 50, 60, 70, 70, 70, 70, 70 },
+        //    new int[] { 70, 70, 70, 70, 70, 70, 70 },
+        //    new int[] {  },
+        //    new int[] { 50, 60, 70, 70, 70, 70, 70 },
+        //    new int[] { 70, 70, 70, 70, 70, 70, 70 },
+        //};
 
-        public static int[][] WeaponEnhancePots = new int[][]
-        {
-            new int[] { 5, 10, 10, 10, 10, 15, 15 },
-            new int[] { 10, 10, 10, 15, 15, 15, 15 },
-            new int[] { 10, 15, 15, 15, 15, 15, 15 },
-            new int[] {  },
-            new int[] { 10, 10, 10, 15, 15, 15, 15 },
-            new int[] { 15, 15, 15, 15, 15, 15, 15 },
-        };
+        //public static int[][] WeaponEnhancePots = new int[][]
+        //{
+        //    new int[] { 5, 10, 10, 10, 10, 15, 15 },
+        //    new int[] { 10, 10, 10, 15, 15, 15, 15 },
+        //    new int[] { 10, 15, 15, 15, 15, 15, 15 },
+        //    new int[] {  },
+        //    new int[] { 10, 10, 10, 15, 15, 15, 15 },
+        //    new int[] { 15, 15, 15, 15, 15, 15, 15 },
+        //};
 
-        public static int[][] WeaponWeaponSpeedTable = new int[][]
-        {
-            new int[] { 20, 30, 30, 35, 40, 40, 40 },
-            new int[] { 30, 35, 40, 40, 40, 40, 40 },
-            new int[] { 35, 40, 40, 40, 40, 40, 40 },
-            new int[] {  },
-            new int[] { 30, 35, 40, 40, 40, 40, 40 },
-            new int[] { 40, 40, 40, 40, 40, 40, 40 },
-        };
-        #endregion
+        //public static int[][] WeaponWeaponSpeedTable = new int[][]
+        //{
+        //    new int[] { 20, 30, 30, 35, 40, 40, 40 },
+        //    new int[] { 30, 35, 40, 40, 40, 40, 40 },
+        //    new int[] { 35, 40, 40, 40, 40, 40, 40 },
+        //    new int[] {  },
+        //    new int[] { 30, 35, 40, 40, 40, 40, 40 },
+        //    new int[] { 40, 40, 40, 40, 40, 40, 40 },
+        //};
+        //#endregion
 
-        #region Ranged Weapons
-        public static int[][] RangedLuckTable = new int[][]
-        {
-            new int[] { 90, 120, 120, 140, 170, 170, 170 },
-            new int[] { 120, 140, 160, 170, 170, 170, 170 },
-            new int[] { 160, 170, 170, 170, 170, 170, 170 },
-            new int[] {  },
-            new int[] { 120, 140, 160, 170, 170, 170, 170 },
-            new int[] { 170, 170, 170, 170, 170, 170, 170 },
-        };
+        //#region Ranged Weapons
+        //public static int[][] RangedLuckTable = new int[][]
+        //{
+        //    new int[] { 90, 120, 120, 140, 170, 170, 170 },
+        //    new int[] { 120, 140, 160, 170, 170, 170, 170 },
+        //    new int[] { 160, 170, 170, 170, 170, 170, 170 },
+        //    new int[] {  },
+        //    new int[] { 120, 140, 160, 170, 170, 170, 170 },
+        //    new int[] { 170, 170, 170, 170, 170, 170, 170 },
+        //};
 
-        public static int[][] RangedHCITable = new int[][]
-        {
-            new int[] { 15, 25, 25, 30, 35, 35, 35 },
-            new int[] { 25, 30, 35, 35, 35, 35, 35 },
-            new int[] { 35, 35, 35, 35, 35, 35, 35 },
-            new int[] {  },
-            new int[] { 25, 25, 30, 35, 35, 35, 35 },
-            new int[] { 35, 35, 35, 35, 35, 35, 35 },
-        };
+        //public static int[][] RangedHCITable = new int[][]
+        //{
+        //    new int[] { 15, 25, 25, 30, 35, 35, 35 },
+        //    new int[] { 25, 30, 35, 35, 35, 35, 35 },
+        //    new int[] { 35, 35, 35, 35, 35, 35, 35 },
+        //    new int[] {  },
+        //    new int[] { 25, 25, 30, 35, 35, 35, 35 },
+        //    new int[] { 35, 35, 35, 35, 35, 35, 35 },
+        //};
 
-        public static int[][] RangedDCITable = new int[][]
-        {
-            new int[] {  },
-            new int[] {  },
-            new int[] {  },
-            new int[] {  },
-            new int[] { 25, 25, 30, 35, 35, 35, 35 },
-            new int[] { 35, 35, 35, 35, 35, 35, 35 },
-        };
-        #endregion
+        //public static int[][] RangedDCITable = new int[][]
+        //{
+        //    new int[] {  },
+        //    new int[] {  },
+        //    new int[] {  },
+        //    new int[] {  },
+        //    new int[] { 25, 25, 30, 35, 35, 35, 35 },
+        //    new int[] { 35, 35, 35, 35, 35, 35, 35 },
+        //};
+        //#endregion
 
-        #region Armor Tables
-        public static int[][] LowerRegTable = new int[][]
-        {
-            new int[] { 10, 20, 20, 20, 25, 25, 25 },
-            new int[] { 20, 20, 25, 25, 25, 25, 25 },
-            new int[] { 25, 25, 25, 25, 25, 25, 25 },
-            new int[] { 20, 20, 25, 25, 25, 25, 25 },
-            new int[] { 20, 20, 25, 25, 25, 25, 25 },
-            new int[] { 25, 25, 25, 25, 25, 25, 25 },
-        };
+        //#region Armor Tables
+        //public static int[][] LowerRegTable = new int[][]
+        //{
+        //    new int[] { 10, 20, 20, 20, 25, 25, 25 },
+        //    new int[] { 20, 20, 25, 25, 25, 25, 25 },
+        //    new int[] { 25, 25, 25, 25, 25, 25, 25 },
+        //    new int[] { 20, 20, 25, 25, 25, 25, 25 },
+        //    new int[] { 20, 20, 25, 25, 25, 25, 25 },
+        //    new int[] { 25, 25, 25, 25, 25, 25, 25 },
+        //};
 
-        public static int[][] ArmorHitsTable = new int[][]
-        {
-            new int[] { 3, 5, 5, 6, 7, 7, 7 },
-            new int[] { 5, 6, 7, 7, 7, 7, 7 },
-            new int[] { 7, 7, 7, 7, 7, 7, 7 },
-            new int[] { 5, 5, 6, 7, 7, 7, 7 },
-            new int[] { 5, 6, 7, 7, 7, 7, 7 },
-            new int[] { 7, 7, 7, 7, 7, 7, 7 },
-        };
+        //public static int[][] ArmorHitsTable = new int[][]
+        //{
+        //    new int[] { 3, 5, 5, 6, 7, 7, 7 },
+        //    new int[] { 5, 6, 7, 7, 7, 7, 7 },
+        //    new int[] { 7, 7, 7, 7, 7, 7, 7 },
+        //    new int[] { 5, 5, 6, 7, 7, 7, 7 },
+        //    new int[] { 5, 6, 7, 7, 7, 7, 7 },
+        //    new int[] { 7, 7, 7, 7, 7, 7, 7 },
+        //};
 
-        public static int[][] ArmorStrTable = new int[][]
-        {
-            new int[] { 3, 4, 4, 4, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-        };
+        //public static int[][] ArmorStrTable = new int[][]
+        //{
+        //    new int[] { 3, 4, 4, 4, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //};
 
-        public static int[][] ArmorRegenTable = new int[][]
-        {
-            new int[] { 2, 3, 3, 3, 4, 4, 4 },
-            new int[] { 3, 3, 4, 4, 4, 4, 4 },
-            new int[] { 4, 4, 4, 4, 4, 4, 4 },
-            new int[] { 3, 3, 4, 4, 4, 4, 4 },
-            new int[] { 3, 3, 4, 4, 4, 4, 4 },
-            new int[] { 4, 4, 4, 4, 4, 4, 4 },
-        };
+        //public static int[][] ArmorRegenTable = new int[][]
+        //{
+        //    new int[] { 2, 3, 3, 3, 4, 4, 4 },
+        //    new int[] { 3, 3, 4, 4, 4, 4, 4 },
+        //    new int[] { 4, 4, 4, 4, 4, 4, 4 },
+        //    new int[] { 3, 3, 4, 4, 4, 4, 4 },
+        //    new int[] { 3, 3, 4, 4, 4, 4, 4 },
+        //    new int[] { 4, 4, 4, 4, 4, 4, 4 },
+        //};
 
-        public static int[][] ArmorStamManaLMCTable = new int[][]
-        {
-            new int[] { 4, 8, 8, 8, 10, 10, 10 },
-            new int[] { 8, 8, 10, 10, 10, 10, 10 },
-            new int[] { 10, 10, 10, 10, 10, 10, 10 },
-            new int[] { 8, 8, 10, 10, 10, 10, 10 },
-            new int[] { 8, 8, 10, 10, 10, 10, 10 },
-            new int[] { 10, 10, 10, 10, 10, 10, 10 },
-        };
+        //public static int[][] ArmorStamManaLMCTable = new int[][]
+        //{
+        //    new int[] { 4, 8, 8, 8, 10, 10, 10 },
+        //    new int[] { 8, 8, 10, 10, 10, 10, 10 },
+        //    new int[] { 10, 10, 10, 10, 10, 10, 10 },
+        //    new int[] { 8, 8, 10, 10, 10, 10, 10 },
+        //    new int[] { 8, 8, 10, 10, 10, 10, 10 },
+        //    new int[] { 10, 10, 10, 10, 10, 10, 10 },
+        //};
 
-        public static int[][] ArmorEnhancePotsTable = new int[][]
-        {
-            new int[] { 2, 2, 3, 3, 3, 3, 3 },
-            new int[] { 3, 3, 3, 3, 3, 3, 3 },
-            new int[] { 3, 3, 3, 3, 3, 3, 3 },
-            new int[] { 3, 3, 3, 3, 3, 3, 3 },
-            new int[] { 3, 3, 3, 3, 3, 3, 3 },
-            new int[] { 3, 3, 3, 3, 3, 3, 3 },
-        };
+        //public static int[][] ArmorEnhancePotsTable = new int[][]
+        //{
+        //    new int[] { 2, 2, 3, 3, 3, 3, 3 },
+        //    new int[] { 3, 3, 3, 3, 3, 3, 3 },
+        //    new int[] { 3, 3, 3, 3, 3, 3, 3 },
+        //    new int[] { 3, 3, 3, 3, 3, 3, 3 },
+        //    new int[] { 3, 3, 3, 3, 3, 3, 3 },
+        //    new int[] { 3, 3, 3, 3, 3, 3, 3 },
+        //};
 
-        public static int[][] ArmorHCIDCITable = new int[][]
-        {
-            new int[] { 4, 4, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-            new int[] { 5, 5, 5, 5, 5, 5, 5 },
-        };
+        //public static int[][] ArmorHCIDCITable = new int[][]
+        //{
+        //    new int[] { 4, 4, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //    new int[] { 5, 5, 5, 5, 5, 5, 5 },
+        //};
 
-        public static int[][] ArmorCastingFocusTable = new int[][]
-        {
-            new int[] { 1, 2, 2, 2, 3, 3, 3 },
-            new int[] { 2, 2, 3, 3, 3, 3, 3 },
-            new int[] { 3, 3, 3, 3, 3, 3, 3 },
-            new int[] { 2, 2, 3, 3, 3, 3, 3 },
-            new int[] { 2, 2, 3, 3, 3, 3, 3 },
-            new int[] { 3, 3, 3, 3, 3, 3, 3 },
-        };
+        //public static int[][] ArmorCastingFocusTable = new int[][]
+        //{
+        //    new int[] { 1, 2, 2, 2, 3, 3, 3 },
+        //    new int[] { 2, 2, 3, 3, 3, 3, 3 },
+        //    new int[] { 3, 3, 3, 3, 3, 3, 3 },
+        //    new int[] { 2, 2, 3, 3, 3, 3, 3 },
+        //    new int[] { 2, 2, 3, 3, 3, 3, 3 },
+        //    new int[] { 3, 3, 3, 3, 3, 3, 3 },
+        //};
 
-        public static int[][] ShieldWeaponSpeedTable = new int[][]
-        {
-            new int[] { 5, 5, 5, 5, 10, 10, 10 },
-            new int[] { 5, 5, 10, 10, 10, 10, 10 },
-            new int[] { 10, 10, 10, 10, 10, 10, 10 },
-            new int[] {  },
-            new int[] { 5, 5, 10, 10, 10, 10, 10 },
-            new int[] { 10, 10, 10, 10, 10, 10, 10 },
-        };
+        //public static int[][] ShieldWeaponSpeedTable = new int[][]
+        //{
+        //    new int[] { 5, 5, 5, 5, 10, 10, 10 },
+        //    new int[] { 5, 5, 10, 10, 10, 10, 10 },
+        //    new int[] { 10, 10, 10, 10, 10, 10, 10 },
+        //    new int[] {  },
+        //    new int[] { 5, 5, 10, 10, 10, 10, 10 },
+        //    new int[] { 10, 10, 10, 10, 10, 10, 10 },
+        //};
 
-        public static int[][] ShieldSoulChargeTable = new int[][]
-        {
-            new int[] { 15, 20, 20, 20, 25, 25, 25 },
-            new int[] { 20, 20, 25, 30, 30, 30, 30 },
-            new int[] { 25, 30, 30, 30, 30, 30, 30 },
-            new int[] {  },
-            new int[] { 20, 20, 25, 30, 30, 30, 30 },
-            new int[] { 25, 30, 30, 30, 30, 30, 30 },
-        };
-        #endregion
-        #endregion
+        //public static int[][] ShieldSoulChargeTable = new int[][]
+        //{
+        //    new int[] { 15, 20, 20, 20, 25, 25, 25 },
+        //    new int[] { 20, 20, 25, 30, 30, 30, 30 },
+        //    new int[] { 25, 30, 30, 30, 30, 30, 30 },
+        //    new int[] {  },
+        //    new int[] { 20, 20, 25, 30, 30, 30, 30 },
+        //    new int[] { 25, 30, 30, 30, 30, 30, 30 },
+        //};
+        //#endregion
+        //#endregion
     }
 
     public class RunicReforgingTarget : Target

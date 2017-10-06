@@ -9,9 +9,9 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public class RandomItemGenerator
+    public partial class RandomItemGenerator
     {
-        public static bool Enabled { get { return Core.HS; } }
+        //public static bool Enabled { get { return Core.HS; } }
         public static int FeluccaLuckBonus { get; private set; }
         public static int FeluccaBudgetBonus { get; private set; }
 
