@@ -26,8 +26,39 @@ namespace Server.Engines.BulkOrders
                 m_Deed.Delete();
                 var player = m_From as PlayerMobile;
                 if (player == null) return;
-
-                player.NextSmithBulkOrder = TimeSpan.FromHours(1.0);
+                
+                if (m_Deed is LargeSmithBOD)
+                {
+                    player.NextSmithBulkOrder = TimeSpan.FromHours(1.0);
+                }
+                else if (m_Deed is LargeTailorBOD)
+                {
+                    player.NextTailorBulkOrder = TimeSpan.FromHours(1);
+                }
+                else if (m_Deed is LargeAlchemyBOD)
+                {
+                    player.NextTailorBulkOrder = TimeSpan.FromHours(1);
+                }
+                else if (m_Deed is LargeInscriptionBOD)
+                {
+                    player.NextTailorBulkOrder = TimeSpan.FromHours(1);
+                }
+                else if (m_Deed is LargeTinkerBOD)
+                {
+                    player.NextTailorBulkOrder = TimeSpan.FromHours(1);
+                }
+                else if (m_Deed is LargeCookingBOD)
+                {
+                    player.NextTailorBulkOrder = TimeSpan.FromHours(1);
+                }
+                else if (m_Deed is LargeFletchingBOD)
+                {
+                    player.NextTailorBulkOrder = TimeSpan.FromHours(1);
+                }
+                else if (m_Deed is LargeCarpentryBOD)
+                {
+                    player.NextTailorBulkOrder = TimeSpan.FromHours(1);
+                }
             }
         }
     }
