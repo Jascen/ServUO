@@ -1,4 +1,5 @@
 version: "3"
+
 services:
  servuo:
   image: uo
@@ -6,3 +7,5 @@ services:
    context: .
   volumes:
     - ./:/app
+  ports:
+    - "2593:2593"

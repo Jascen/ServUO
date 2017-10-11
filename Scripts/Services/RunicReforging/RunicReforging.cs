@@ -898,386 +898,386 @@ namespace Server.Items
             m_AllowableTable[typeof(GargishStoneAmulet)] = DefMasonry.CraftSystem;
         }
 
-        public static void Configure()
-        {
-            Server.Commands.CommandSystem.Register("GetCreatureScore", AccessLevel.GameMaster, e =>
-                {
-                    e.Mobile.BeginTarget(12, false, Server.Targeting.TargetFlags.None, (from, targeted) =>
-                        {
-                            if (targeted is BaseCreature)
-                            {
-                                ((BaseCreature)targeted).PrivateOverheadMessage(Server.Network.MessageType.Regular, 0x25, false, GetDifficultyFor((BaseCreature)targeted).ToString(), e.Mobile.NetState);
-                            }
-                        });
-                });
+   //     public static void Configure()
+   //     {
+   //         Server.Commands.CommandSystem.Register("GetCreatureScore", AccessLevel.GameMaster, e =>
+   //             {
+   //                 e.Mobile.BeginTarget(12, false, Server.Targeting.TargetFlags.None, (from, targeted) =>
+   //                     {
+   //                         if (targeted is BaseCreature)
+   //                         {
+   //                             ((BaseCreature)targeted).PrivateOverheadMessage(Server.Network.MessageType.Regular, 0x25, false, GetDifficultyFor((BaseCreature)targeted).ToString(), e.Mobile.NetState);
+   //                         }
+   //                     });
+   //             });
 
-            m_MeleeWeaponList = new List<object>();
-            m_RangedWeaponList = new List<object>();
-            m_ArmorList = new List<object>();
-            m_JewelList = new List<object>();
-            m_ShieldList = new List<object>();
+   //         m_MeleeWeaponList = new List<object>();
+   //         m_RangedWeaponList = new List<object>();
+   //         m_ArmorList = new List<object>();
+   //         m_JewelList = new List<object>();
+   //         m_ShieldList = new List<object>();
 
-            m_MeleeWeaponList.AddRange(m_WeaponBasic);
-            m_MeleeWeaponList.AddRange(m_MeleeStandard);
+   //         m_MeleeWeaponList.AddRange(m_WeaponBasic);
+   //         m_MeleeWeaponList.AddRange(m_MeleeStandard);
 
-            m_RangedWeaponList.AddRange(m_WeaponBasic);
-            m_RangedWeaponList.AddRange(m_RangedStandard);
+   //         m_RangedWeaponList.AddRange(m_WeaponBasic);
+   //         m_RangedWeaponList.AddRange(m_RangedStandard);
 
-            m_ArmorList.AddRange(m_ArmorStandard);
-            m_JewelList.AddRange(m_JewelStandard);
-            m_ShieldList.AddRange(m_ShieldStandard);
+   //         m_ArmorList.AddRange(m_ArmorStandard);
+   //         m_JewelList.AddRange(m_JewelStandard);
+   //         m_ShieldList.AddRange(m_ShieldStandard);
 
-			// TypeIndex 0 - Weapon; 1 - Armor; 2 - Shield; 3 - Jewels
-            // RunicIndex 0 - dullcopper; 1 - shadow; 2 - copper; 3 - spined; 4 - Oak; 5 - ash
+			//// TypeIndex 0 - Weapon; 1 - Armor; 2 - Shield; 3 - Jewels
+   //         // RunicIndex 0 - dullcopper; 1 - shadow; 2 - copper; 3 - spined; 4 - Oak; 5 - ash
 
-			m_PrefixSuffixInfo[0] = null;
-			m_PrefixSuffixInfo[1] = new NamedInfoCol[][] 	//Might
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.HitLeechHits, HitsAndManaLeechTable),
-                        new NamedInfoCol(AosAttribute.BonusHits, WeaponHitsTable),
-                        new NamedInfoCol(AosAttribute.BonusStr, WeaponStrTable),
-                        new NamedInfoCol(AosAttribute.RegenHits, WeaponRegenTable),
-                    },
+			//m_PrefixSuffixInfo[0] = null;
+			//m_PrefixSuffixInfo[1] = new NamedInfoCol[][] 	//Might
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLeechHits, HitsAndManaLeechTable),
+   //                     new NamedInfoCol(AosAttribute.BonusHits, WeaponHitsTable),
+   //                     new NamedInfoCol(AosAttribute.BonusStr, WeaponStrTable),
+   //                     new NamedInfoCol(AosAttribute.RegenHits, WeaponRegenTable),
+   //                 },
 
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol("RandomEater", EaterTable),
-                        new NamedInfoCol(AosAttribute.BonusHits, ArmorHitsTable),
-                        new NamedInfoCol(AosAttribute.BonusStr, ArmorStrTable),
-                        new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
-                    },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol("RandomEater", EaterTable),
+   //                     new NamedInfoCol(AosAttribute.BonusHits, ArmorHitsTable),
+   //                     new NamedInfoCol(AosAttribute.BonusStr, ArmorStrTable),
+   //                     new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
+   //                 },
 					
-                    new NamedInfoCol[] // shield
-                    {
-                        new NamedInfoCol("RandomEater", EaterTable),
-                        new NamedInfoCol(AosAttribute.BonusHits, ArmorHitsTable),
-                        new NamedInfoCol(AosAttribute.BonusStr, ArmorStrTable),
-                        new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
-                    },
+   //                 new NamedInfoCol[] // shield
+   //                 {
+   //                     new NamedInfoCol("RandomEater", EaterTable),
+   //                     new NamedInfoCol(AosAttribute.BonusHits, ArmorHitsTable),
+   //                     new NamedInfoCol(AosAttribute.BonusStr, ArmorStrTable),
+   //                     new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
+   //                 },
 
-                    new NamedInfoCol[] // jewels
-                    {
-                        new NamedInfoCol(AosAttribute.BonusHits, ArmorHitsTable),
-                        new NamedInfoCol(AosAttribute.BonusStr, ArmorStrTable),
-                    }
-				};
+   //                 new NamedInfoCol[] // jewels
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusHits, ArmorHitsTable),
+   //                     new NamedInfoCol(AosAttribute.BonusStr, ArmorStrTable),
+   //                 }
+			//	};
 				
-			m_PrefixSuffixInfo[2] = new NamedInfoCol[][] 	//Mystic
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.HitLeechMana, HitsAndManaLeechTable),
-                        new NamedInfoCol(AosAttribute.BonusMana, WeaponStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, WeaponStamManaLMCTable),
-                        /*new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable), */
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
-                        new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
-                    },
-				};
+			//m_PrefixSuffixInfo[2] = new NamedInfoCol[][] 	//Mystic
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLeechMana, HitsAndManaLeechTable),
+   //                     new NamedInfoCol(AosAttribute.BonusMana, WeaponStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, WeaponStamManaLMCTable),
+   //                     /*new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable), */
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
+   //                     new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
+   //                 },
+			//	};
 				
-			m_PrefixSuffixInfo[3] = new NamedInfoCol[][]	// Animated
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.HitLeechStam, HitStamLeechTable),
-                        new NamedInfoCol(AosAttribute.BonusStam, WeaponStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
-                        new NamedInfoCol(AosAttribute.RegenStam, WeaponRegenTable),
-                        new NamedInfoCol(AosAttribute.WeaponSpeed, WeaponWeaponSpeedTable),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.BonusStam, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
-                        new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.BonusStam, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
-                        new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.WeaponSpeed, ShieldWeaponSpeedTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.BonusStam, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
-                        new NamedInfoCol(AosAttribute.WeaponSpeed, ShieldWeaponSpeedTable),
-                    },
-				};
-			m_PrefixSuffixInfo[4] = new NamedInfoCol[][]	//Arcane
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.HitLeechMana, HitsAndManaLeechTable),
-                        new NamedInfoCol(AosWeaponAttribute.HitManaDrain, HitWeaponTable2),
-                        new NamedInfoCol(AosAttribute.BonusMana, WeaponStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, WeaponStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.CastSpeed, 1),
-                        new NamedInfoCol(AosAttribute.SpellChanneling, 1),
-                        new NamedInfoCol(AosWeaponAttribute.MageWeapon, MageWeaponTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, WeaponRegenTable),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
-                        new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
-                        new NamedInfoCol(AosAttribute.CastSpeed, 2),
-                        new NamedInfoCol(AosAttribute.CastRecovery, 4),
-                        new NamedInfoCol(AosAttribute.SpellDamage, 15),
-                    },
-				};
-			m_PrefixSuffixInfo[5] = new NamedInfoCol[][]	// Exquisite
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.SelfRepair, SelfRepairTable),
-                        new NamedInfoCol(AosWeaponAttribute.DurabilityBonus, DurabilityTable),
-                        new NamedInfoCol(AosWeaponAttribute.HitLowerDefend, HitWeaponTable2),
-                        new NamedInfoCol(AosWeaponAttribute.LowerStatReq, LowerStatReqTable),
-                        new NamedInfoCol("Slayer", 1),
-                        new NamedInfoCol(AosWeaponAttribute.MageWeapon, MageWeaponTable),
-                        new NamedInfoCol(AosAttribute.SpellChanneling, 1),
-                        new NamedInfoCol(AosAttribute.BalancedWeapon, 1),
-                        new NamedInfoCol("WeaponVelocity", WeaponVelocityTable),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosArmorAttribute.SelfRepair, SelfRepairTable),
-                        new NamedInfoCol(AosArmorAttribute.DurabilityBonus, DurabilityTable),
-                        new NamedInfoCol(AosArmorAttribute.LowerStatReq, LowerStatReqTable),
-                    },
-                    new NamedInfoCol[] // shield
-                    {
-                        new NamedInfoCol(AosArmorAttribute.SelfRepair, SelfRepairTable),
-                        new NamedInfoCol(AosArmorAttribute.DurabilityBonus, DurabilityTable),
-                        new NamedInfoCol(AosArmorAttribute.LowerStatReq, LowerStatReqTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                    },
-				};
-			m_PrefixSuffixInfo[6] = new NamedInfoCol[][]	//Vampiric
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.HitLeechHits, HitsAndManaLeechTable),
-                        new NamedInfoCol(AosWeaponAttribute.HitLeechStam, HitStamLeechTable),
-                        new NamedInfoCol(AosWeaponAttribute.HitLeechMana, HitsAndManaLeechTable),
-                        new NamedInfoCol(AosWeaponAttribute.HitManaDrain, HitWeaponTable2),
-                        new NamedInfoCol(AosWeaponAttribute.HitFatigue, HitWeaponTable2),
-                        new NamedInfoCol(AosWeaponAttribute.BloodDrinker, 1),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                    },
-                    new NamedInfoCol[]
-                    {
-                    },
-                    new NamedInfoCol[]
-                    {
-                    },
-				};
-			m_PrefixSuffixInfo[7] = new NamedInfoCol[][]	// Invigorating
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosAttribute.RegenHits, WeaponRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenStam, WeaponRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, WeaponRegenTable),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+			//m_PrefixSuffixInfo[3] = new NamedInfoCol[][]	// Animated
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLeechStam, HitStamLeechTable),
+   //                     new NamedInfoCol(AosAttribute.BonusStam, WeaponStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.RegenStam, WeaponRegenTable),
+   //                     new NamedInfoCol(AosAttribute.WeaponSpeed, WeaponWeaponSpeedTable),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusStam, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusStam, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.WeaponSpeed, ShieldWeaponSpeedTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusStam, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusDex, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.WeaponSpeed, ShieldWeaponSpeedTable),
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[4] = new NamedInfoCol[][]	//Arcane
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLeechMana, HitsAndManaLeechTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.HitManaDrain, HitWeaponTable2),
+   //                     new NamedInfoCol(AosAttribute.BonusMana, WeaponStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, WeaponStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.CastSpeed, 1),
+   //                     new NamedInfoCol(AosAttribute.SpellChanneling, 1),
+   //                     new NamedInfoCol(AosWeaponAttribute.MageWeapon, MageWeaponTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, WeaponRegenTable),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.BonusMana, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.BonusInt, DexIntTable),
+   //                     new NamedInfoCol(AosAttribute.LowerManaCost, ArmorStamManaLMCTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.LowerRegCost, LowerRegTable),
+   //                     new NamedInfoCol(AosAttribute.CastSpeed, 2),
+   //                     new NamedInfoCol(AosAttribute.CastRecovery, 4),
+   //                     new NamedInfoCol(AosAttribute.SpellDamage, 15),
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[5] = new NamedInfoCol[][]	// Exquisite
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.SelfRepair, SelfRepairTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.DurabilityBonus, DurabilityTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLowerDefend, HitWeaponTable2),
+   //                     new NamedInfoCol(AosWeaponAttribute.LowerStatReq, LowerStatReqTable),
+   //                     new NamedInfoCol("Slayer", 1),
+   //                     new NamedInfoCol(AosWeaponAttribute.MageWeapon, MageWeaponTable),
+   //                     new NamedInfoCol(AosAttribute.SpellChanneling, 1),
+   //                     new NamedInfoCol(AosAttribute.BalancedWeapon, 1),
+   //                     new NamedInfoCol("WeaponVelocity", WeaponVelocityTable),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosArmorAttribute.SelfRepair, SelfRepairTable),
+   //                     new NamedInfoCol(AosArmorAttribute.DurabilityBonus, DurabilityTable),
+   //                     new NamedInfoCol(AosArmorAttribute.LowerStatReq, LowerStatReqTable),
+   //                 },
+   //                 new NamedInfoCol[] // shield
+   //                 {
+   //                     new NamedInfoCol(AosArmorAttribute.SelfRepair, SelfRepairTable),
+   //                     new NamedInfoCol(AosArmorAttribute.DurabilityBonus, DurabilityTable),
+   //                     new NamedInfoCol(AosArmorAttribute.LowerStatReq, LowerStatReqTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[6] = new NamedInfoCol[][]	//Vampiric
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLeechHits, HitsAndManaLeechTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLeechStam, HitStamLeechTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLeechMana, HitsAndManaLeechTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.HitManaDrain, HitWeaponTable2),
+   //                     new NamedInfoCol(AosWeaponAttribute.HitFatigue, HitWeaponTable2),
+   //                     new NamedInfoCol(AosWeaponAttribute.BloodDrinker, 1),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[7] = new NamedInfoCol[][]	// Invigorating
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.RegenHits, WeaponRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenStam, WeaponRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, WeaponRegenTable),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
 
-                        new NamedInfoCol("RandomEater",  EaterTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
-                        new NamedInfoCol(AosArmorAttribute.SoulCharge, ShieldSoulChargeTable),
-                        new NamedInfoCol("RandomEater", EaterTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
-                        new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
-                        new NamedInfoCol("RandomEater", EaterTable),
-                    },
-				};
-			m_PrefixSuffixInfo[8] = new NamedInfoCol[][]	// Fortified
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.ResistPhysicalBonus, ResistTable),
-                        new NamedInfoCol(AosWeaponAttribute.ResistFireBonus, ResistTable),
-                        new NamedInfoCol(AosWeaponAttribute.ResistColdBonus, ResistTable),
-                        new NamedInfoCol(AosWeaponAttribute.ResistPoisonBonus, ResistTable),
-                        new NamedInfoCol(AosWeaponAttribute.ResistEnergyBonus, ResistTable),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosElementAttribute.Physical, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Fire, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Cold, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Poison, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Energy, ResistTable),
-                        new NamedInfoCol("RandomEater", EaterTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosElementAttribute.Physical, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Fire, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Cold, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Poison, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Energy, ResistTable),
-                        new NamedInfoCol("RandomEater", EaterTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosElementAttribute.Physical, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Fire, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Cold, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Poison, ResistTable),
-                        new NamedInfoCol(AosElementAttribute.Energy, ResistTable),
-                    },
-				};
-			m_PrefixSuffixInfo[9] = new NamedInfoCol[][]	// Auspicious
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosAttribute.Luck, LuckTable, RangedLuckTable),
-                    },
-					new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.Luck, LuckTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.Luck, LuckTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.Luck, LuckTable),
-                    },
-				};
-			m_PrefixSuffixInfo[10] = new NamedInfoCol[][]	// Charmed
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosAttribute.EnhancePotions, WeaponEnhancePots),
-                        new NamedInfoCol(AosAttribute.BalancedWeapon, 1),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.EnhancePotions, ArmorEnhancePotsTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.EnhancePotions, ArmorEnhancePotsTable),
-                    },
-				};
-			m_PrefixSuffixInfo[11] = new NamedInfoCol[][]	//Vicious
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol("HitSpell", HitWeaponTable1),
-                        new NamedInfoCol("HitArea", HitWeaponTable1),
-                        new NamedInfoCol(AosAttribute.AttackChance, WeaponHCITable, RangedHCITable),
-                        new NamedInfoCol(AosAttribute.WeaponDamage, WeaponDamageTable),
-                        new NamedInfoCol(AosWeaponAttribute.BattleLust, 1),
-                        new NamedInfoCol(AosWeaponAttribute.SplinteringWeapon, 30),
-                        new NamedInfoCol("Slayer", 1),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.AttackChance, ArmorHCIDCITable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.AttackChance, WeaponHCITable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.AttackChance, WeaponHCITable),
-                        new NamedInfoCol(AosAttribute.SpellDamage, 15),
-                    }, 
-				};
-			m_PrefixSuffixInfo[12] = new NamedInfoCol[][]	// Towering
-				{
-                    new NamedInfoCol[] // Weapon
-                    {
-                        new NamedInfoCol(AosWeaponAttribute.HitLowerAttack, HitWeaponTable1),
-                        new NamedInfoCol(AosWeaponAttribute.ReactiveParalyze, 1),
-                        new NamedInfoCol(AosAttribute.DefendChance, WeaponDCITable, RangedDCITable),
-                    },
-                    new NamedInfoCol[] // armor
-                    {
-                        new NamedInfoCol(AosAttribute.DefendChance, ArmorHCIDCITable),
-                        new NamedInfoCol(SAAbsorptionAttribute.CastingFocus, ArmorCastingFocusTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.DefendChance, WeaponDCITable),
-                        new NamedInfoCol(AosArmorAttribute.ReactiveParalyze, 1),
-                        new NamedInfoCol(AosArmorAttribute.SoulCharge, ShieldSoulChargeTable),
-                    },
-                    new NamedInfoCol[]
-                    {
-                        new NamedInfoCol(AosAttribute.DefendChance, ArmorHCIDCITable),
-                        new NamedInfoCol(SAAbsorptionAttribute.CastingFocus, ArmorCastingFocusTable),
-                    },
-				};
-        }
+   //                     new NamedInfoCol("RandomEater",  EaterTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+   //                     new NamedInfoCol(AosArmorAttribute.SoulCharge, ShieldSoulChargeTable),
+   //                     new NamedInfoCol("RandomEater", EaterTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.RegenHits, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenStam, ArmorRegenTable),
+   //                     new NamedInfoCol(AosAttribute.RegenMana, ArmorRegenTable),
+   //                     new NamedInfoCol("RandomEater", EaterTable),
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[8] = new NamedInfoCol[][]	// Fortified
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.ResistPhysicalBonus, ResistTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.ResistFireBonus, ResistTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.ResistColdBonus, ResistTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.ResistPoisonBonus, ResistTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.ResistEnergyBonus, ResistTable),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosElementAttribute.Physical, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Fire, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Cold, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Poison, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Energy, ResistTable),
+   //                     new NamedInfoCol("RandomEater", EaterTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosElementAttribute.Physical, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Fire, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Cold, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Poison, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Energy, ResistTable),
+   //                     new NamedInfoCol("RandomEater", EaterTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosElementAttribute.Physical, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Fire, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Cold, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Poison, ResistTable),
+   //                     new NamedInfoCol(AosElementAttribute.Energy, ResistTable),
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[9] = new NamedInfoCol[][]	// Auspicious
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.Luck, LuckTable, RangedLuckTable),
+   //                 },
+			//		new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.Luck, LuckTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.Luck, LuckTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.Luck, LuckTable),
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[10] = new NamedInfoCol[][]	// Charmed
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.EnhancePotions, WeaponEnhancePots),
+   //                     new NamedInfoCol(AosAttribute.BalancedWeapon, 1),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.EnhancePotions, ArmorEnhancePotsTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.EnhancePotions, ArmorEnhancePotsTable),
+   //                 },
+			//	};
+			//m_PrefixSuffixInfo[11] = new NamedInfoCol[][]	//Vicious
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol("HitSpell", HitWeaponTable1),
+   //                     new NamedInfoCol("HitArea", HitWeaponTable1),
+   //                     new NamedInfoCol(AosAttribute.AttackChance, WeaponHCITable, RangedHCITable),
+   //                     new NamedInfoCol(AosAttribute.WeaponDamage, WeaponDamageTable),
+   //                     new NamedInfoCol(AosWeaponAttribute.BattleLust, 1),
+   //                     new NamedInfoCol(AosWeaponAttribute.SplinteringWeapon, 30),
+   //                     new NamedInfoCol("Slayer", 1),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.AttackChance, ArmorHCIDCITable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.AttackChance, WeaponHCITable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.AttackChance, WeaponHCITable),
+   //                     new NamedInfoCol(AosAttribute.SpellDamage, 15),
+   //                 }, 
+			//	};
+			//m_PrefixSuffixInfo[12] = new NamedInfoCol[][]	// Towering
+			//	{
+   //                 new NamedInfoCol[] // Weapon
+   //                 {
+   //                     new NamedInfoCol(AosWeaponAttribute.HitLowerAttack, HitWeaponTable1),
+   //                     new NamedInfoCol(AosWeaponAttribute.ReactiveParalyze, 1),
+   //                     new NamedInfoCol(AosAttribute.DefendChance, WeaponDCITable, RangedDCITable),
+   //                 },
+   //                 new NamedInfoCol[] // armor
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.DefendChance, ArmorHCIDCITable),
+   //                     new NamedInfoCol(SAAbsorptionAttribute.CastingFocus, ArmorCastingFocusTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.DefendChance, WeaponDCITable),
+   //                     new NamedInfoCol(AosArmorAttribute.ReactiveParalyze, 1),
+   //                     new NamedInfoCol(AosArmorAttribute.SoulCharge, ShieldSoulChargeTable),
+   //                 },
+   //                 new NamedInfoCol[]
+   //                 {
+   //                     new NamedInfoCol(AosAttribute.DefendChance, ArmorHCIDCITable),
+   //                     new NamedInfoCol(SAAbsorptionAttribute.CastingFocus, ArmorCastingFocusTable),
+   //                 },
+			//	};
+   //     }
 
         public class NamedInfoCol
         {

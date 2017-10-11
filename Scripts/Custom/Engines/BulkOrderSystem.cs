@@ -2,7 +2,7 @@ using Server.Mobiles;
 
 namespace Server.Engines.BulkOrders
 {
-    public static partial class BulkOrderSystem
+    public partial class BulkOrderSystem
     {
         public static Item CreateBulkOrder(Mobile m, BODType type, bool fromContextMenu)
         {
