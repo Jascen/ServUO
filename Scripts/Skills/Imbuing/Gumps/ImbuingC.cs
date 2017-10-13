@@ -12,14 +12,14 @@ using Server.SkillHandlers;
 
 namespace Server.Gumps
 {
-    public class ImbuingGumpC : Gump
+    public partial class ImbuingGumpC : Gump
     {
         private const int LabelHue = 0x480;
         private const int LabelColor = 0x7FFF;  //Localized
         private const int FontColor = 0xFFFFFF; //string
         private const int ValueColor = 0xCCCCFF;
 
-        public const int MaxProps = 5;
+        //public const int MaxProps = 5;
 
         private int m_Mod, m_Value;
         private Item m_Item;
